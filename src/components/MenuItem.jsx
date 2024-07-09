@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 
-export const MenuItem = ({ name, children, hasSubMenu = false }) => {
+export const MenuItem = ({ name, children }) => {
   const [open, setOpen] = useState(false);
 
+  const hasSubMenu = !!children;
+  
   const handleMouseEnter = () => {
     if (hasSubMenu) {
       setOpen(true);

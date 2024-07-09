@@ -11,7 +11,7 @@
 }
 
 .menu-item {
-  position: relative;
+  position: relative; /* для дочек с абсолютом */
   padding: 10px 20px;
   cursor: pointer;
   border-radius: 8px;
@@ -22,8 +22,11 @@
 }
 
 .menu-item-name {
-  display: flex; /* flexbox для выравнивания текста и ▼ */
-  justify-content: space-between; /* Раскидываем текст и "▼" по краям */
+  /* justify-content + width - нужно дочкам */
+  /* раскидать лейбл и шеврон по разным краям */
+  /* Видно только на дочках при широком предке */
+  display: flex; 
+  justify-content: space-between; 
   width: 100%;
 }
 
@@ -39,5 +42,7 @@
 }
 
 .menu-item.has-submenu.open .submenu {
+  /* если у предка все 3 класса, 
+  то потомок .submenu примет правила */
   display: block;
 }
