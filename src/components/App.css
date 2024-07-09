@@ -1,7 +1,5 @@
 .App {
-  /* text-align: center; */
   font-family: Arial, Helvetica, sans-serif;
-  /* font-size: 28px; */
 }
 
 .menu {
@@ -12,15 +10,50 @@
 }
 
 .menu-item {
+  position: relative; /* для дочек с абсолютом */
+
   margin: 0;
   padding: 10px 20px;
+  box-sizing: border-box;
+
+  cursor: pointer;
   list-style: none;
-  background-color: darksalmon;
-  font-size: 18px;
+  background: darksalmon;
   border-radius: 12px;
   border: 3px solid navajowhite;
-  box-sizing: border-box;
+}
+
+.menu-item_label {
+  display: flex;
+  /* justify-content + width - нужно дочкам */
+  /* раскидать лейбл и шеврон по разным краям */
+  /* Видно только на дочках при широком предке */
+  justify-content: space-between; 
+  width: 100%;
 }
 
 .dropdown-icon {
+  padding-left: 5px;
+}
+
+.submenu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+
+  /* absolute относительно ближайшего предка 
+  с относительной позицией (.menu-item) */
+  position: absolute;
+  top: 100%; /* сдвиг на высоту пункта меню */
+  left: 0; /* прижать к левому краю */
+  background-color: red;
+  display: none;
+}
+
+/* Отображение подменю при наличии классов */
+.menu-item.has-submenu.open .submenu {
+  /* Правила применятся к элементу submenu. Условия: */
+  /* Когда родитель имеет все классы, перечисленные слева.  */
+  display: block; 
 }

@@ -15,9 +15,14 @@ export function MenuItem({ label, children }) {
   };
 
   return (
-    <li className={`menu-item ${hasSubMenu}`} onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+    <li
+      className={`menu-item ${hasSubMenu ? "has-submenu" : ""} ${open ? "open" : ""}`}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
       <div className="menu-item_label">
-        {label} {hasSubMenu && <img alt="dropdown-icon" src={dropdownIcon} className="dropdown-icon" />}
+        <span> {label} </span>
+        {hasSubMenu && <img alt="dropdown-icon" src={dropdownIcon} className="dropdown-icon" />}
       </div>
       {hasSubMenu && open && <ul className="submenu">{children}</ul>}
     </li>
