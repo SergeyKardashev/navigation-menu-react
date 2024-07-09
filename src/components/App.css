@@ -1,5 +1,48 @@
 .App {
-  /* text-align: center; */
   font-family: Arial, Helvetica, sans-serif;
   font-size: 34px;
+}
+
+.menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+.menu-item {
+  position: relative; /* для дочек с абсолютом */
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 8px;
+}
+
+.menu-item:hover {
+  background: gray;
+}
+
+.menu-item-name {
+  /* justify-content + width - нужно дочкам */
+  /* раскидать лейбл и шеврон по разным краям */
+  /* Видно только на дочках при широком предке */
+  display: flex; 
+  justify-content: space-between; 
+  width: 100%;
+}
+
+.submenu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: plum;
+  display: none;
+}
+
+.menu-item.has-submenu.open .submenu {
+  /* если у предка все 3 класса, 
+  то потомок .submenu примет правила */
+  display: block;
 }
