@@ -5,9 +5,16 @@ import { MenuItem } from "./MenuItem";
 function App() {
   return (
     <div className="App">
-      <header className="App-header">header</header>
+      <h1 className="App-header">header</h1>
       <Menu>
-        <MenuItem />
+        <MenuItem label="home" />
+        <MenuItem label="pages">
+          <MenuItem label="London">
+            <MenuItem label="Downtown" />
+            <MenuItem label="Outskirts" />
+          </MenuItem>
+          <MenuItem label="Oslo" />
+        </MenuItem>
       </Menu>
     </div>
   );
