@@ -7,10 +7,10 @@ function App() {
     <div className="App">
       <h1 className="App-header">Menu with dropdown</h1>
       <Menu>
-        <MenuItem name="Level 1 home" to="/" />
-        <MenuItem name="Level 1 services" to="/services">
-          <MenuItem name="Level 2 SEO" to="/seo" />
-          <MenuItem name="Level 2 DESIGN" to="/design" />
+        <MenuItem label="Level 1 home" to="/" />
+        <MenuItem label="Level 1 services" to="/services">
+          <MenuItem label="Level 2 SEO" to="/seo" />
+          <MenuItem label="Level 2 DESIGN" to="/design" />
           {/* <MenuItem name="Level 2 with children" >
           <MenuItem name="Level 3a" />
           <MenuItem name="Level 3b" />
@@ -18,7 +18,7 @@ function App() {
           <MenuItem name="Level 3d_the_last_of_3rd" />
           </MenuItem> */}
         </MenuItem>
-        <MenuItem name="Level 1 JOBS" to="/jobs" />
+        <MenuItem label="Level 1 JOBS" to="/jobs" />
       </Menu>
     </div>
   );

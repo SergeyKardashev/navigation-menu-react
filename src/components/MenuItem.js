@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import dropdownIcon from './images/dropdown-icon.svg'
 
-export const MenuItem = ({ name, children }) => {
+export const MenuItem = ({ label, children }) => {
   const [open, setOpen] = useState(false);
 
   const hasSubMenu = !!children;
@@ -23,8 +24,9 @@ export const MenuItem = ({ name, children }) => {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <div className="menu-item-name">
-        {name} {hasSubMenu && <span>▼</span>}
+      <div className="menu-item_label">
+        <span> {label} </span>
+        {hasSubMenu && <img alt="dropdown-icon" src={dropdownIcon} className="dropdown-icon" />}
       </div>
       {hasSubMenu && open && <ul className="submenu">{children}</ul>}
     </li>
