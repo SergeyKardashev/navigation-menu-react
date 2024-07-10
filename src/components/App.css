@@ -22,7 +22,7 @@
 }
 
 .menu-item-label {
-  /* justify-content + width - нужно дочкам */
+  /* justify + width - нужно дочкам с шевроном */
   /* раскидать лейбл и шеврон по разным краям */
   /* Видно только на дочках при широком предке */
   display: flex; 
@@ -45,4 +45,11 @@
   /* если у предка все 3 класса, 
   то потомок .submenu примет правила */
   display: block;
+}
+
+
+.menu-item_label a {
+  /* вместо .menu-item_link  */
+  text-decoration: none;
+  color: inherit;
 }

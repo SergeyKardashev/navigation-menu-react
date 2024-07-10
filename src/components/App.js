@@ -1,3 +1,5 @@
+import React from "react";
+
 import "./App.css";
 import { Menu } from "./Menu";
 import { MenuItem } from "./MenuItem";
@@ -10,7 +12,7 @@ function App() {
         <MenuItem label="Level 1 home" to="/" />
         <MenuItem label="Level 1 services" to="/services">
           <MenuItem label="Level 2 SEO" to="/seo" />
-          <MenuItem label="Level 2 DESIGN" to="/design" />
+          <MenuItem label="Level 2 DESIGN and Development" to="/design" />
           {/* <MenuItem name="Level 2 with children" >
           <MenuItem name="Level 3a" />
           <MenuItem name="Level 3b" />

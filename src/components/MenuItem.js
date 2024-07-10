@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import dropdownIcon from './images/dropdown-icon.svg'
 
-export const MenuItem = ({ label, children }) => {
+export const MenuItem = ({ label, children, to }) => {
   const [open, setOpen] = useState(false);
 
   const hasSubMenu = !!children;
@@ -25,7 +26,7 @@ export const MenuItem = ({ label, children }) => {
       onMouseLeave={handleMouseLeave}
     >
       <div className="menu-item_label">
-        <span> {label} </span>
+        {hasSubMenu ? label : <Link to={to}>{label}</Link>}
         {hasSubMenu && <img alt="dropdown-icon" src={dropdownIcon} className="dropdown-icon" />}
       </div>
       {hasSubMenu && open && <ul className="submenu">{children}</ul>}
