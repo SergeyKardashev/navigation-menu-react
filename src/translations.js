@@ -21,8 +21,6 @@ export const translations = {
         otherSites: 'Смежные страницы',
         other: 'Другое',
         footer: {
-          home: 'Главная',
-          aboutProject: 'О проекте',
           prices: 'Цены',
           feedback: 'Обратная связь'
         }
