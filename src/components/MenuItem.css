@@ -1,0 +1,67 @@
+.menu-item {
+  padding: 10px 20px;
+  display: flex;
+  box-sizing: border-box;
+
+  transition: background-color 0.3s ease;
+  align-items: center;
+  
+  background: darkcyan;
+  border-bottom: 1px solid #ff6d6d;
+  cursor: pointer;
+}
+/* бордюры нужны только вертикальным меню */
+/* .menu-item:last-child {
+  border-bottom: none;
+} */
+
+.menu-item:hover {
+  background-color: #f1f1f1;
+}
+
+.menu-item.disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+  background: lightpink;
+}
+
+.menu-item.active {
+  background-color: #007bff;
+  color: white;
+}
+
+.primary {
+  background-color: #007bff;
+  color: white;
+}
+
+.secondary {
+  background-color: #6c757d;
+  color: white;
+}
+
+.left {
+  text-align: left;
+}
+
+.center {
+  text-align: center;
+}
+
+.right {
+  text-align: right;
+}
+
+.up::after {
+  content: ' ▲';
+}
+
+.down::after {
+  content: ' ▼';
+}
+
+.icon {
+  margin-right: 10px;
+  width: 16px;
+  height: 16px;
+}

@@ -1,0 +1,19 @@
+/* стили меню-контейнера */
+.menu {
+    padding: 0;
+    margin: 50px;
+    height: 100px;
+    box-sizing:border-box;
+
+    display: flex;
+    
+    border: 2px solid #5e86fd;
+  }
+
+  /* ширина 100% вместе с margin 
+  уводит край блока за край экрана */
+  /* width: 100%; */
+
+  /* Отменил из-за вложенности li в li 
+  при вложенности пунктов меню друг в друга */
+  /* list-style-type: none; */
