@@ -20,6 +20,8 @@ export const translations = {
         bookmarks: 'Закладки',
         otherSites: 'Смежные страницы',
         other: 'Другое',
+        tree: 'Древо',
+        articles: 'Статьи',
         footer: {
           prices: 'Цены',
           feedback: 'Обратная связь'

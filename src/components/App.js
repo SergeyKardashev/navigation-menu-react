@@ -1,23 +1,17 @@
 import React from "react";
 
 import "./App.css";
+import "./Menu.css";
 import { Menu } from "./Menu";
 import { MenuItem } from "./MenuItem";
 import T from "i18n-react";
 import bell from "../images/bell.svg";
-import bookmark from "../images/bookmark.svg";
+import bookmark from "../images/bookmark-icon.svg";
 import avatar from "../images/avatar-my.svg";
 
 function App() {
-  const siteName = "My Site";
-  const prices = "Prices";
-  // const chat = "Chat";
-  const pricesDropDown = (
-    <ul>
-      <li>Price 1</li>
-      <li>Price 2</li>
-    </ul>
-  );
+  const siteName = "Сейт Ивана";
+
   // другое - это StaticPages
   // const staticPages = [
   //   { url: "/prices", desc: "nav.footer.prices" },
@@ -37,46 +31,46 @@ function App() {
       • Закладки 
       • профиль (аватар и фио) ▼  
       */}
+      <p>• Лого и название, Древо, Статьи ▼ Смежные страницы ▼ Другое ▼ Уведомления, Закладки, аватар и фио ▼  </p>
       <Menu>
+          {/* заменить многоуровневое на Dropdown и метод map по массиву pages*/}
 
-        {/* лого и название */}
+        {/* Лого и название */}
         <MenuItem text={siteName} to="/">
-          <img src="./images/site-logo.svg" alt="логотип сайта" />
+          <img src="./images/site-logo.svg" alt="лого сайта" />
           <span>{siteName}</span>
         </MenuItem>
 
-        {/* цены (хлам) */}
-        <MenuItem text={prices} to="/prices">
-          {pricesDropDown}
-        </MenuItem>
+        {/* Древо */}
+        <MenuItem text={T.translate("nav.tree")} type='primary' to="/tree" />
+        
+        {/* Test left*/}
+        <MenuItem text='Test left' left />
+        <MenuItem text='Test right' right />
 
-        {/* древо */}
-        <MenuItem text={T.translate("usermenu.tree")} to="/tree" />
-
-        {/* статьи */}
-        <MenuItem text={T.translate("usermenu.articles")} hasSubMenu>
+        {/* Статьи */}
+        <MenuItem text={T.translate("nav.articles")} hasSubMenu right >
           {/* заменить потомков на метод map */}
-          <MenuItem text="1st article" to="/articles/1st-article" />
-          <MenuItem text="2nd article" to="/articles/2nd-article" />
+          {/* <MenuItem text="1st article" to="/articles/1st-article" /> */}
+          {/* <MenuItem text="2nd article" to="/articles/2nd-article" /> */}
         </MenuItem>
 
-        {/* смежные страницы */}
+        {/* Смежные страницы */}
         <MenuItem text={T.translate("nav.otherSites")} hasSubMenu>
           {/* заменить потомков на метод map */}
-          <MenuItem text="какой-то site1" to="/site1" />
-          <MenuItem text="какой-то site2" to="/site2" />
+          {/* <MenuItem text="какой-то site1" to="/site1" /> */}
+          {/* <MenuItem text="какой-то site2" to="/site2" /> */}
         </MenuItem>
 
         {/* Другое */}
-        <MenuItem text={T.translate("nav.other")} hasSubMenu>
-          {/* заменить потомков на метод map по массиву pages*/}
-          <MenuItem text="какой-то site1" to="/site1" />
-          <MenuItem text="какой-то site2" to="/site2" />
+        <MenuItem text={T.translate("nav.other")} type='secondary' hasSubMenu>
+          {/* заменить потомков на Dropdown и метод map по массиву pages*/}
+          {/* <MenuItem text="Цены" to="/prices" /> */}
+          {/* <MenuItem text="Правила" to="/terms" /> */}
         </MenuItem>
 
-        <MenuItem text="какой-то 123" className="flex">
+        <MenuItem text={T.translate("nav.messages")} to="notifications" >
           {/* Уведомления - в одной обертке счетчик и иконка */}
-          <MenuItem text={T.translate("nav.messages")} to="notifications" />
           <div text='icons wrap'>
             <div className="counter">2</div>
             <img className="bell-icon" src={bell} alt={T.translate("nav.messages")} />
@@ -84,11 +78,13 @@ function App() {
         </MenuItem>
 
         {/* Закладки */}
-        <MenuItem text={T.translate("nav.bookmarks")} to="bookmarks">
-          <img src={bookmark} alt={T.translate("nav.bookmarks")} />
+        <MenuItem text={T.translate("nav.bookmarks")} noText icon={bookmark} to="bookmarks" />
+        
+        {/* <MenuItem text={T.translate("nav.bookmarks")} icon={bookmark} to="bookmarks"> */}
+          {/* <img src={bookmark} alt={T.translate("nav.bookmarks")} /> */}
+          {/* <img src={`../images/bookmark-icon.svg`} alt={`icon`} className="icon" /> */}
           {/* в семантике есть пропсы inline spaced */}
-        </MenuItem>
-
+        {/* </MenuItem> */}
         <span>hr</span>
 
         {/* выпадающее меню профиля */}

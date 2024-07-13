@@ -4,9 +4,9 @@ import './Menu.css';
 
 export const Menu = ({ children, className }) => {
   return (
-    <ul className={className || 'menu'}>
+    <div className={className || 'menu'}>
       {children}
-    </ul>
+    </div>
   );
 };
 
@@ -18,5 +18,3 @@ Menu.propTypes = {
 Menu.defaultProps = {
   className: 'menu',
 };
-
-// export default Menu;

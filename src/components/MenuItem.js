@@ -4,13 +4,16 @@ import './MenuItem.css';
 
 // 8 пропсов: 
 // Лейбл text 
+// Выключатель лейбла noText
 // Колбэк onClick, 
 // Имя иконки icon, 
 // Дочки children 
 // Стили type, position, direction, disabled, active
 
-export const MenuItem = ({ text, onClick, type, position, direction, icon, disabled, active, children }) => {
-    const className = `
+export const MenuItem = ({ text, noText, onClick, type, position, direction, icon, disabled, active, children }) => {
+  
+  // стиль формируется из пропсов
+  const className = `
     menu-item
     ${type}
     ${position}
@@ -23,13 +26,17 @@ export const MenuItem = ({ text, onClick, type, position, direction, icon, disab
    .join(' ');
 
   return (
-    <li className={className} onClick={!disabled ? onClick : undefined}>
-      {icon && <img src={`/images/${icon}-icon.svg`} alt={`${icon} icon`} className="icon" />}
-      {children || text}
-    </li>
+    <div className={className} onClick={!disabled ? onClick : undefined}>
+      {/* {icon && <img src={`../images/${icon}-icon.svg`} alt={`${icon} icon`} className="icon" />} */}
+      {icon && <img src={icon} alt={text} className="icon" />}
+      {/* Если есть метка выключателя лейбла, то показываю детей. 
+      Если нет выключателя - отображаю лейбл */}
+      {noText ? children : (children || text)}
+    </div>
   );
 };
 
+// text isRequired это нужно и для alt-текста картинок, и для подсказки ссылки
 MenuItem.propTypes = {
   text: PropTypes.string.isRequired,
   onClick: PropTypes.func,
@@ -52,5 +59,3 @@ MenuItem.defaultProps = {
   active: false,
   children: null,
 };
-
-// export default MenuItem;
