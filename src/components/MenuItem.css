@@ -1,10 +1,11 @@
 .menu-item {
   padding: 10px 20px;
+
+  border: 1px solid coral;
   cursor: pointer;
   transition: background-color 0.3s ease;
   display: flex;
   align-items: center;
-  width: 200px;
 }
 
 /* Не нужна граница */
@@ -40,15 +41,15 @@
 }
 
 .left {
-  text-align: left;
+  justify-content: flex-start;
 }
 
 .center {
-  text-align: center;
+  justify-content: center;
 }
 
 .right {
-  text-align: right;
+  justify-content: flex-end;
 }
 
 .up::after {

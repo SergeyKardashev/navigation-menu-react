@@ -12,7 +12,7 @@ import './MenuItem.css';
 
 export const MenuItem = ({ text, noText, onClick, type, position, direction, icon, disabled, active, children }) => {
   
-  // стиль формируется из пропсов
+  // стиль - набор классов формируется из пропсов
   const className = `
     menu-item
     ${type}

@@ -5,7 +5,7 @@ import "./Menu.css";
 import { Menu } from "./Menu";
 import { MenuItem } from "./MenuItem";
 import T from "i18n-react";
-import bell from "../images/bell.svg";
+import bell from "../images/bell-icon.svg";
 import bookmark from "../images/bookmark-icon.svg";
 import avatar from "../images/avatar-my.svg";
 
@@ -32,8 +32,9 @@ function App() {
       • профиль (аватар и фио) ▼  
       */}
       <p>• Лого и название, Древо, Статьи ▼ Смежные страницы ▼ Другое ▼ Уведомления, Закладки, аватар и фио ▼  </p>
+      
       <Menu>
-          {/* заменить многоуровневое на Dropdown и метод map по массиву pages*/}
+        {/* заменить многоуровневое на Dropdown и метод map по массиву pages*/}
 
         {/* Лого и название */}
         <MenuItem text={siteName} to="/">
@@ -44,26 +45,22 @@ function App() {
         {/* Древо */}
         <MenuItem text={T.translate("nav.tree")} type='primary' to="/tree" />
         
-        {/* Test left*/}
-        <MenuItem text='Test left' left />
-        <MenuItem text='Test right' right />
-
         {/* Статьи */}
-        <MenuItem text={T.translate("nav.articles")} hasSubMenu right >
+        <MenuItem text={T.translate("nav.articles")} hasSubMenu direction="up" position='right' >
           {/* заменить потомков на метод map */}
           {/* <MenuItem text="1st article" to="/articles/1st-article" /> */}
           {/* <MenuItem text="2nd article" to="/articles/2nd-article" /> */}
         </MenuItem>
 
         {/* Смежные страницы */}
-        <MenuItem text={T.translate("nav.otherSites")} hasSubMenu>
+        <MenuItem text={T.translate("nav.otherSites")} direction="down" >
           {/* заменить потомков на метод map */}
           {/* <MenuItem text="какой-то site1" to="/site1" /> */}
           {/* <MenuItem text="какой-то site2" to="/site2" /> */}
         </MenuItem>
 
         {/* Другое */}
-        <MenuItem text={T.translate("nav.other")} type='secondary' hasSubMenu>
+        <MenuItem text={T.translate("nav.other")} type='secondary' >
           {/* заменить потомков на Dropdown и метод map по массиву pages*/}
           {/* <MenuItem text="Цены" to="/prices" /> */}
           {/* <MenuItem text="Правила" to="/terms" /> */}
@@ -77,8 +74,13 @@ function App() {
           </div>
         </MenuItem>
 
+        {/* Закладки с иконкой в пропсах - лишний зазор после иконки (нет текста справа) */}
+        {/* <MenuItem text={T.translate("nav.bookmarks")} noText icon={bookmark} to="bookmarks" /> */}
+        
         {/* Закладки */}
-        <MenuItem text={T.translate("nav.bookmarks")} noText icon={bookmark} to="bookmarks" />
+        <MenuItem text={T.translate("nav.bookmarks")} noText to="bookmarks">
+          <img src={bookmark} alt={T.translate("nav.bookmarks")}/>
+        </MenuItem>
         
         {/* <MenuItem text={T.translate("nav.bookmarks")} icon={bookmark} to="bookmarks"> */}
           {/* <img src={bookmark} alt={T.translate("nav.bookmarks")} /> */}
@@ -89,7 +91,7 @@ function App() {
 
         {/* выпадающее меню профиля */}
         {/* переименовать MenuItem в Dropdown ??? */}
-        <MenuItem text="todo user dropdown" hasSubMenu>
+        <MenuItem text="todo user dropdown" >
           <img src={avatar} alt={T.translate("userParams.firstName")} />
           <div>{T.translate("userParams.firstName")}</div>
         </MenuItem>
