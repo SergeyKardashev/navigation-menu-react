@@ -31,7 +31,8 @@ export const MenuItem = ({ text, noText, onClick, type, position, direction, ico
       {icon && <img src={icon} alt={text} className="icon" />}
       {/* Если есть метка выключателя лейбла, то показываю детей. 
       Если нет выключателя - отображаю лейбл */}
-      {noText ? children : (children || text)}
+      {noText ? '' : text}
+      {children}
     </div>
   );
 };

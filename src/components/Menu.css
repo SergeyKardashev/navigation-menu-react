@@ -2,14 +2,21 @@
 /* list-style-type: none; */
 
 .menu {
-    padding: 0;
-    margin: 10px;
-    box-sizing: border-box;
-    border: 5px solid #ef7f7f;
-    
-    display: flex;
-  }
+  padding: 0;
+  margin: 10px;
+  box-sizing: border-box;
+  border: 5px solid #ef7f7f;
   
+  display: flex;
+}
+
+.site-logo {
+  margin-right: 10px;
+  width: 40px;
+  aspect-ratio: 1/1;
+}
+
+
   /* Если совместить 
   * div 
   * 100% ширины

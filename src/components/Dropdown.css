@@ -1,0 +1,16 @@
+.dropdown {
+  position: relative; /* для абсолютных детей */
+  display: flex;
+  align-items: center;
+}
+
+/* иконка у всех в виде картинки */
+/* .down::after {
+    content: ' ▼';
+} */
+
+.dropdown-icon {
+  margin-left: 8px; /* Отступ иконки от текста */
+  fill: black; /* Цвет иконки */
+  vertical-align: middle;
+}
