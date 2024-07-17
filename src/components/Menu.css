@@ -57,6 +57,17 @@
   background-color: #f1f1f1;
 }
 
+.dropdown-item_header {
+  font-weight: 900;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+}
+
+.dropdown-item_header:hover {
+  background-color: inherit;
+}
+
 .icon {
   margin-right: 10px;
 }

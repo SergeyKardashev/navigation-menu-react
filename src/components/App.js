@@ -4,6 +4,8 @@ import bell from "../images/bell-icon.svg";
 import logout from '../images/logout-icon.svg';
 import bookmark from '../images/bookmark-icon.svg';
 import siteLogo from '../images/site-logo.svg';
+import radioButtonIconOff from '../images/radio-button-icon-off.svg';
+import radioButtonIconOn from '../images/radio-button-icon-on.svg';
 
 // Menu главная обертка всего меню вместе с подменю
 const Menu = ({ children }) => {
@@ -13,6 +15,11 @@ const Menu = ({ children }) => {
 // MenuItem пункт меню, который может содержать список
 const MenuItem = ({ children }) => {
   return <li className="menu-item">{children}</li>;
+};
+
+// MenuItem пункт меню, который может содержать список
+const MenuHeader = ({ children }) => {
+  return <div className="dropdown-item dropdown-item_header">{children}</div>;
 };
 
 // Dropdown обертка для лейбла и списка
@@ -58,27 +65,42 @@ const App = () => {
       </MenuItem>
       <MenuItem>
         <Dropdown>
-        <div style={{margin: 0, padding: 0, display: 'flex', alignItems: 'center'}}>
-          Доставка
-          <img style={{height: 20, marginLeft: 8}} src={logout} alt="лого" />
-        </div>
-          {/* <div style={{margin: 0, padding: 0}}> */}
-              {/* Доставка */}
-              {/* <img style={{height: 20, position: "relative", top: 5, margin: 0, padding: 0}} src={logout} alt="лого" /> */}
-              {/* <img src={logout} alt="лого" /> */}
-          {/* </div> */}
+          <div style={{margin: 0, padding: 0, display: 'flex', alignItems: 'center'}}>
+            Доставка
+            <img style={{height: 20, marginLeft: 8}} src={logout} alt="лого" />
+          </div>
           <DropdownMenu>
-            <div>
-              Города <span>Нет моего города</span>
-            </div>
+            <MenuHeader>
+
+                Города
+                <button>Кнопка</button>
+
+            </MenuHeader>
             <hr />
-            <DropdownItem><img src={bell} alt='bell'/>Москва</DropdownItem>
+            <DropdownItem>
+              <div style={{margin: 0, padding: 0, display: 'flex', alignItems: 'center'}}>
+                <img src={bell} alt='bell' />
+                Москва
+              </div>
+            </DropdownItem>
             <DropdownItem>Екатеринбург</DropdownItem>
             <hr />
-            Деревни и сёла
+            просто текст 
             <hr />
-            <DropdownItem>Кукуево</DropdownItem>
-            <DropdownItem>Гадюкино</DropdownItem>
+            <MenuHeader>            Деревни и сёла
+            </MenuHeader>
+            <DropdownItem>
+              <div style={{margin: 0, padding: 0, display: 'flex', alignItems: 'center'}}>
+                <img src={radioButtonIconOff} alt='bell' />
+                Кукуево
+              </div>
+            </DropdownItem>
+            <DropdownItem>
+              <div style={{ margin: 0, padding: 0, display: 'flex', alignItems: 'center' }}>
+                <img src={radioButtonIconOn} alt='bell' />
+                Гадюкино
+              </div>
+            </DropdownItem>
           </DropdownMenu>
         </Dropdown>
       </MenuItem>
