@@ -1,5 +1,7 @@
 .menu-item {
-  padding: 10px 20px;
+  /* padding: 10px 20px; */
+  padding: 0;
+  box-sizing: border-box;
 
   border: 1px solid coral;
   cursor: pointer;
@@ -52,14 +54,17 @@
   justify-content: flex-end;
 }
 
-.up::after {
+/* Унес в Dropdown */
+/* .up::after {
   content: ' ▲';
 }
 
-.down::after {
+/* Унес в Dropdown */
+/* .down::after {
   content: ' ▼';
-}
+}  */
 
+/* иконка перед пунктом меню или вместо текста в меню. */
 .icon {
   margin-right: 10px;
   width: 16px;

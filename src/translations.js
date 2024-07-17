@@ -12,6 +12,7 @@ export const translations = {
       userParams: {
         firstName: 'Имя',
         email: 'Почта',
+        settings: 'Настройки',
       },
       nav: {
         timeline: 'Лента',

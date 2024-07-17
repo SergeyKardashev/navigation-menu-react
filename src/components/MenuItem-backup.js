@@ -15,8 +15,14 @@ import { Dropdown } from "./Dropdown";
 export const MenuItem = (props) => {
   // must have props
   const { text, noText, hasSubMenu, onClick, icon, children } = props;
+  
   // extra props 
   const { type, position, direction, active, disabled} = props;
+
+  console.log(children);
+
+  const noSubMenu = !hasSubMenu;
+  const showText = !noText;
 
   // стиль - набор классов формируется из пропсов
   const className = `
@@ -36,9 +42,12 @@ export const MenuItem = (props) => {
 
   return (
     <div className={className} onClick={handleOnClick}>
-      {icon ? <img src={icon} alt={text} className="icon" /> : ""}
-      {noText ? '' : text}
-      {children}
+      {hasSubMenu
+        ? <Dropdown {...props} children={children} />
+        : icon && <img src={icon} alt={text} className="icon" />
+      }
+      {noSubMenu && showText ? text : ""}
+      {hasSubMenu ? '' : children}
     </div>
   );
 };
@@ -46,6 +55,9 @@ export const MenuItem = (props) => {
 // Если есть иконка- показываю ее
 // Если есть метка выключателя лейбла, то сразу показываю детей. 
 // Если нет выключателя - отображаю сначала лейбл, а потом - детей
+// Прошлая версия иконки
+// {icon && <img src={`../images/${icon}-icon.svg`} alt={`${icon} icon`} className="icon" />}
+
 
 // text isRequired это нужно и для alt-текста картинок, и для подсказки ссылки
 MenuItem.propTypes = {

@@ -2,6 +2,9 @@
   position: relative; /* для абсолютных детей */
   display: flex;
   align-items: center;
+  background-color: aquamarine;
+  min-width: 100px;
+  height: 100%;
 }
 
 /* иконка у всех в виде картинки */
@@ -10,7 +13,7 @@
 } */
 
 .dropdown-icon {
-  margin-left: 8px; /* Отступ иконки от текста */
+  margin-left: 18px; /* Отступ иконки от текста */
   fill: black; /* Цвет иконки */
   vertical-align: middle;
 }
