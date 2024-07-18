@@ -9,6 +9,7 @@ import siteLogo from "../images/site-logo.svg";
 import radioButtonIconOff from "../images/radio-button-icon-off.svg";
 import radioButtonIconOn from "../images/radio-button-icon-on.svg";
 import dropdownIcon from "../images/dropdown-icon.svg";
+import avatar from "../images/avatar-my.svg";
 
 // Menu главная обертка всего меню вместе с подменю
 const Menu = ({ children }) => {
@@ -110,6 +111,47 @@ const App = () => {
       </MenuItem>
       <MenuItem url="/notifications">
         <img src={bell} alt="notifications" />
+      </MenuItem>
+      <MenuItem>
+        <Dropdown>
+          <div style={{ margin: 0, padding: 0, display: "flex", alignItems: "center" }}>
+            <img alt="avatar" src={avatar} style={{ height: 40, marginRight: 8, border: '1px solid red', borderRadius: '50%' }}  />
+            John Doe 
+          </div>
+          <DropdownMenu>
+            <DropdownItem url="/sidney">
+              <div style={{ margin: 0, padding: 0, display: "flex", alignItems: "center" }}>
+                <img src={bell} alt="bell" style={{marginRight: 10}}/>
+                Profile
+              </div>
+            </DropdownItem>
+            <DropdownItem url="/sidney">
+              <div style={{ margin: 0, padding: 0, display: "flex", alignItems: "center" }}>
+                <img src={bell} alt="bell" style={{marginRight: 10}}/>
+                Articles Management
+              </div>
+            </DropdownItem>
+            <DropdownItem url="/sidney">
+              <div style={{ margin: 0, padding: 0, display: "flex", alignItems: "center" }}>
+                <img src={bell} alt="bell" style={{marginRight: 10}}/>
+                Feedback
+              </div>
+            </DropdownItem>
+            <DropdownItem url="/sidney">
+              <div style={{ margin: 0, padding: 0, display: "flex", alignItems: "center" }}>
+                <img src={bell} alt="bell" style={{marginRight: 10}}/>
+                Settings
+              </div>
+            </DropdownItem>
+            <DropdownItem url="/sidney">
+              <div style={{ margin: 0, padding: 0, display: "flex", alignItems: "center" }}>
+                <img src={bell} alt="bell" style={{marginRight: 10}}/>
+                log Out
+              </div>
+            </DropdownItem>
+
+          </DropdownMenu>
+        </Dropdown>
       </MenuItem>
     </Menu>
   );
