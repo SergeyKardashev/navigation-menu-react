@@ -6,6 +6,7 @@ import bookmark from '../images/bookmark-icon.svg';
 import siteLogo from '../images/site-logo.svg';
 import radioButtonIconOff from '../images/radio-button-icon-off.svg';
 import radioButtonIconOn from '../images/radio-button-icon-on.svg';
+import dropdownIcon from '../images/dropdown-icon.svg';
 
 // Menu главная обертка всего меню вместе с подменю
 const Menu = ({ children }) => {
@@ -34,6 +35,7 @@ const Dropdown = ({ children }) => {
     >
       <div className="dropdown-label">
         {children[0]}
+        <img src={dropdownIcon} alt='arrow' />
         {/* <span className="dropdown-icon">▼</span> */}
       </div>
       {isOpen && <div className="dropdown-menu">{children[1]}</div>}
@@ -71,10 +73,8 @@ const App = () => {
           </div>
           <DropdownMenu>
             <MenuHeader>
-
                 Города
                 <button>Кнопка</button>
-
             </MenuHeader>
             <hr />
             <DropdownItem>
