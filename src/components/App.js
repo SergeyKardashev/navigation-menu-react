@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
-import './Menu.css';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+
+import "./Menu.css";
 import bell from "../images/bell-icon.svg";
-import logout from '../images/logout-icon.svg';
-import bookmark from '../images/bookmark-icon.svg';
-import siteLogo from '../images/site-logo.svg';
-import radioButtonIconOff from '../images/radio-button-icon-off.svg';
-import radioButtonIconOn from '../images/radio-button-icon-on.svg';
-import dropdownIcon from '../images/dropdown-icon.svg';
+import logout from "../images/logout-icon.svg";
+import bookmark from "../images/bookmark-icon.svg";
+import siteLogo from "../images/site-logo.svg";
+import radioButtonIconOff from "../images/radio-button-icon-off.svg";
+import radioButtonIconOn from "../images/radio-button-icon-on.svg";
+import dropdownIcon from "../images/dropdown-icon.svg";
 
 // Menu главная обертка всего меню вместе с подменю
 const Menu = ({ children }) => {
@@ -14,46 +16,43 @@ const Menu = ({ children }) => {
 };
 
 // MenuItem пункт меню, который может содержать список
-const MenuItem = ({ children }) => {
-  return <li className="menu-item">{children}</li>;
+const MenuItem = ({ children, url }) => {
+  return <li className="menu-item">{url ? <Link to={url}>{children}</Link> : children}</li>;
 };
 
-// MenuItem пункт меню, который может содержать список
+// Заголовок в меню, который может содержать список, а может быть сам по себе
 const MenuHeader = ({ children }) => {
   return <div className="dropdown-item dropdown-item_header">{children}</div>;
 };
 
 // Dropdown обертка для лейбла и списка
 const Dropdown = ({ children }) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
 
   return (
-    <div
-      className="dropdown"
-      onMouseEnter={() => setIsOpen(true)}
-      onMouseLeave={() => setIsOpen(false)}
-    >
+    <div className="dropdown" onMouseEnter={() => setIsOpen(true)} onMouseLeave={() => setIsOpen(false)}>
       <div className="dropdown-label">
         {children[0]}
-        <img src={dropdownIcon} alt='arrow' />
-        {/* <span className="dropdown-icon">▼</span> */}
+        <img src={dropdownIcon} alt="arrow" style={{marginLeft: 5}} />
       </div>
       {isOpen && <div className="dropdown-menu">{children[1]}</div>}
     </div>
   );
 };
 
-// DropdownMenu - Обертка пунктов подменю 
+// DropdownMenu - Обертка пунктов подменю
 const DropdownMenu = ({ children }) => {
-  return (<div className="dropdown-menu">{children}</div>);
+  return <>{children}</>;
 };
 
 // DropdownItem пункт выпадающего меню
-const DropdownItem = ({ children, icon }) => {
+const DropdownItem = ({ children, icon, url }) => {
   return (
     <div className="dropdown-item">
-      {icon && <span className="icon">{icon}</span>}
-      {children}
+      <Link to={url} className="dropdown-link">
+        {icon && <span className="icon">{icon}</span>}
+        {children}
+      </Link>
     </div>
   );
 };
@@ -61,52 +60,56 @@ const DropdownItem = ({ children, icon }) => {
 const App = () => {
   return (
     <Menu>
-      <MenuItem>
-        <img src={siteLogo} alt="logo" style={{height: 20, marginRight: 10}}/>
-        Мой_сайт
+      <MenuItem name="ну точно мой" url="/">
+        <img src={siteLogo} alt="logo" style={{ height: 40, width: 40, marginRight: 10 }} />
+        SiteName
       </MenuItem>
       <MenuItem>
         <Dropdown>
-          <div style={{margin: 0, padding: 0, display: 'flex', alignItems: 'center'}}>
-            Доставка
-            <img style={{height: 20, marginLeft: 8}} src={logout} alt="лого" />
+          <div style={{ margin: 0, padding: 0, display: "flex", alignItems: "center" }}>
+            Here's submenu 
+            <img style={{ height: 20, marginLeft: 8 }} src={logout} alt="лого" />
           </div>
           <DropdownMenu>
             <MenuHeader>
-                Города
-                <button>Кнопка</button>
+              <span style={{ marginRight: 10}}>Cities</span>
+              <button>I'm a button</button>
             </MenuHeader>
             <hr />
-            <DropdownItem>
-              <div style={{margin: 0, padding: 0, display: 'flex', alignItems: 'center'}}>
-                <img src={bell} alt='bell' />
-                Москва
+            <DropdownItem url="/sidney">
+              <div style={{ margin: 0, padding: 0, display: "flex", alignItems: "center" }}>
+                <img src={bell} alt="bell" style={{marginRight: 10}}/>
+                Sidney
               </div>
             </DropdownItem>
-            <DropdownItem>Екатеринбург</DropdownItem>
+            <DropdownItem url="/stockholm">Stockholm</DropdownItem>
             <hr />
-            просто текст 
+            <p style={{ margin: "20px 20px" }}>
+              Basic text. Just in case you need it. A comment or cue for user.
+            </p>
             <hr />
-            <MenuHeader>            Деревни и сёла
-            </MenuHeader>
-            <DropdownItem>
-              <div style={{margin: 0, padding: 0, display: 'flex', alignItems: 'center'}}>
-                <img src={radioButtonIconOff} alt='bell' />
-                Кукуево
+            <MenuHeader>Parks</MenuHeader>
+            <DropdownItem url="/central-park">
+              <div style={{ margin: 0, padding: 0, display: "flex", alignItems: "center" }}>
+                <img src={radioButtonIconOff} alt="bell" />
+                Central Park
               </div>
             </DropdownItem>
-            <DropdownItem>
-              <div style={{ margin: 0, padding: 0, display: 'flex', alignItems: 'center' }}>
-                <img src={radioButtonIconOn} alt='bell' />
-                Гадюкино
+            <DropdownItem url="/industrial-park">
+              <div style={{ margin: 0, padding: 0, display: "flex", alignItems: "center" }}>
+                <img src={radioButtonIconOn} alt="bell" />
+                Industrial Park
               </div>
             </DropdownItem>
           </DropdownMenu>
         </Dropdown>
       </MenuItem>
-      <MenuItem>
-        <img className='inline-img' src={bookmark} alt="contacts" />
-        Контакты
+      <MenuItem url="/bookmark">
+        <img className="bookmark" src={bookmark} alt="bookmark" />
+        Bookmarks
+      </MenuItem>
+      <MenuItem url="/notifications">
+        <img src={bell} alt="notifications" />
       </MenuItem>
     </Menu>
   );
