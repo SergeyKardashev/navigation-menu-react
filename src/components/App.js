@@ -2,31 +2,41 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 import "./Menu.css";
-import bell from "../images/bell-icon.svg";
-import logout from "../images/logout-icon.svg";
-import bookmark from "../images/bookmark-icon.svg";
+// arbitrary images
 import siteLogo from "../images/site-logo.svg";
-import radioButtonIconOff from "../images/radio-button-icon-off.svg";
-import radioButtonIconOn from "../images/radio-button-icon-on.svg";
-import dropdownIcon from "../images/dropdown-icon.svg";
-import avatar from "../images/avatar-my.svg";
+import avatarIcon from "../images/avatar-my.svg";
 
-// Menu главная обертка всего меню вместе с подменю
+// main menu icons
+import bellIcon from "../images/bell-icon.svg";
+import bookmarkIcon from "../images/bookmark-icon.svg";
+
+// dropdown icons
+import radioBtnIconOff from "../images/radio-btn-icon-off.svg";
+import radioBtnIconOn from "../images/radio-btn-icon-on.svg";
+import dropdownIcon from "../images/dropdown-icon.svg";
+import profileProfileIcon from "../images/profile-profile-icon.svg";
+import articlesManageIcon from "../images/profile-articles-management-icon.svg";
+import feedbackIcon from "../images/profile-feedback-icon.svg";
+import settingsIcon from "../images/profile-settings-icon.svg";
+import logOutIcon from "../images/profile-logout-icon.svg";
+import starIcon from "../images/city-star-icon.svg";
+
+// wrapper for entire Menu with submenu
 const Menu = ({ children }) => {
   return <ul className="menu">{children}</ul>;
 };
 
-// MenuItem пункт меню, который может содержать список
+// Main item. Can contain sub menu (dropdown)
 const MenuItem = ({ children, url }) => {
   return <li className="menu-item">{url ? <Link to={url}>{children}</Link> : children}</li>;
 };
 
-// Заголовок в меню, который может содержать список, а может быть сам по себе
+// Header inside menu. It can live on its onw, but cat has list as a child
 const MenuHeader = ({ children }) => {
   return <div className="dropdown-item dropdown-item_header">{children}</div>;
 };
 
-// Dropdown обертка для лейбла и списка
+// wrapper for label of dropdown and list of items
 const Dropdown = ({ children }) => {
   const [isOpen, setIsOpen] = useState(true);
 
@@ -41,12 +51,12 @@ const Dropdown = ({ children }) => {
   );
 };
 
-// DropdownMenu - Обертка пунктов подменю
+// wrapper for list of items
 const DropdownMenu = ({ children }) => {
   return <>{children}</>;
 };
 
-// DropdownItem пункт выпадающего меню
+// item of dropdown menu
 const DropdownItem = ({ children, icon, url }) => {
   return (
     <div className="dropdown-item">
@@ -69,7 +79,7 @@ const App = () => {
         <Dropdown>
           <div style={{ margin: 0, padding: 0, display: "flex", alignItems: "center" }}>
             Here's submenu 
-            <img style={{ height: 20, marginLeft: 8 }} src={logout} alt="лого" />
+            <img style={{ height: 20, marginLeft: 8 }} src={logOutIcon} alt="лого" />
           </div>
           <DropdownMenu>
             <MenuHeader>
@@ -79,11 +89,13 @@ const App = () => {
             <hr />
             <DropdownItem url="/sidney">
               <div style={{ margin: 0, padding: 0, display: "flex", alignItems: "center" }}>
-                <img src={bell} alt="bell" style={{marginRight: 10}}/>
+                <img src={starIcon} alt="star" style={{marginRight: 10}}/>
                 Sidney
               </div>
             </DropdownItem>
             <DropdownItem url="/stockholm">Stockholm</DropdownItem>
+            <DropdownItem url="/new-d elhi">New Delhi</DropdownItem>
+            <DropdownItem url="/beijing">Beijing</DropdownItem>
             <hr />
             <p style={{ margin: "20px 20px" }}>
               Basic text. Just in case you need it. A comment or cue for user.
@@ -92,13 +104,13 @@ const App = () => {
             <MenuHeader>Parks</MenuHeader>
             <DropdownItem url="/central-park">
               <div style={{ margin: 0, padding: 0, display: "flex", alignItems: "center" }}>
-                <img src={radioButtonIconOff} alt="bell" />
+                <img src={radioBtnIconOff} alt="bell" />
                 Central Park
               </div>
             </DropdownItem>
             <DropdownItem url="/industrial-park">
               <div style={{ margin: 0, padding: 0, display: "flex", alignItems: "center" }}>
-                <img src={radioButtonIconOn} alt="bell" />
+                <img src={radioBtnIconOn} alt="bell" />
                 Industrial Park
               </div>
             </DropdownItem>
@@ -106,47 +118,47 @@ const App = () => {
         </Dropdown>
       </MenuItem>
       <MenuItem url="/bookmark">
-        <img className="bookmark" src={bookmark} alt="bookmark" />
+        <img className="bookmark" src={bookmarkIcon} alt="bookmark" />
         Bookmarks
       </MenuItem>
       <MenuItem url="/notifications">
-        <img src={bell} alt="notifications" />
+        <img src={bellIcon} alt="notifications" />
       </MenuItem>
       <MenuItem>
         <Dropdown>
           <div style={{ margin: 0, padding: 0, display: "flex", alignItems: "center" }}>
-            <img alt="avatar" src={avatar} style={{ height: 40, marginRight: 8, border: '1px solid red', borderRadius: '50%' }}  />
+            <img alt="avatar" src={avatarIcon} style={{ height: 40, marginRight: 8, border: '1px solid red', borderRadius: '50%' }}  />
             John Doe 
           </div>
           <DropdownMenu>
-            <DropdownItem url="/sidney">
+            <DropdownItem url="/profile">
               <div style={{ margin: 0, padding: 0, display: "flex", alignItems: "center" }}>
-                <img src={bell} alt="bell" style={{marginRight: 10}}/>
+                <img src={profileProfileIcon} alt="profile" style={{marginRight: 10}}/>
                 Profile
               </div>
             </DropdownItem>
-            <DropdownItem url="/sidney">
+            <DropdownItem url="/articles-management">
               <div style={{ margin: 0, padding: 0, display: "flex", alignItems: "center" }}>
-                <img src={bell} alt="bell" style={{marginRight: 10}}/>
+                <img src={articlesManageIcon} alt="articles management" style={{marginRight: 10}}/>
                 Articles Management
               </div>
             </DropdownItem>
-            <DropdownItem url="/sidney">
+            <DropdownItem url="/feedback">
               <div style={{ margin: 0, padding: 0, display: "flex", alignItems: "center" }}>
-                <img src={bell} alt="bell" style={{marginRight: 10}}/>
+                <img src={feedbackIcon} alt="Feedback" style={{marginRight: 10}}/>
                 Feedback
               </div>
             </DropdownItem>
-            <DropdownItem url="/sidney">
+            <DropdownItem url="/settings">
               <div style={{ margin: 0, padding: 0, display: "flex", alignItems: "center" }}>
-                <img src={bell} alt="bell" style={{marginRight: 10}}/>
+                <img src={settingsIcon} alt="settings" style={{marginRight: 10}}/>
                 Settings
               </div>
             </DropdownItem>
-            <DropdownItem url="/sidney">
+            <DropdownItem url="/logout">
               <div style={{ margin: 0, padding: 0, display: "flex", alignItems: "center" }}>
-                <img src={bell} alt="bell" style={{marginRight: 10}}/>
-                log Out
+                <img src={logOutIcon} alt="Log out" style={{marginRight: 10}}/>
+                Log out
               </div>
             </DropdownItem>
           </DropdownMenu>
