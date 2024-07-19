@@ -27,19 +27,20 @@ const Menu = ({ children }) => {
 };
 
 // Main item. Can contain sub menu (dropdown)
-const MenuItem = ({ children, url, icon, text = "item", noText, iconPR, iconPL }) => {
+const MenuItem = ({ children, url, icon, text="item", noText, iconPR, iconPL }) => {
   const iconClass = `icon ${iconPR ? "icon_pr" : ""} ${iconPL ? "icon_pl" : ""}`;
+  const content = (
+    <>
+      {icon ? <img src={icon} alt={text} className={iconClass} /> : ''}
+      {children || (noText ? '' : text)}
+    </>
+  );
 
   return (
     <li className="menu-item">
-      {(url) ? (
-        <Link to={url} title={text}>
-          { icon ? <img src={icon} alt={text} className={iconClass} /> : ''}
-          {children || (noText ? '' : text)} 
-        </Link>
-      ) : (
-        children || (noText ? '' : text )
-      )}
+      {(url)
+        ? (<Link to={url} title={text}>{content}</Link>)
+        : (<span className="menu-item" title={text}>{content}</span>)}
     </li>
   );
 };
@@ -54,7 +55,7 @@ const Dropdown = ({ children }) => {
   const [isOpen, setIsOpen] = useState(true);
 
   return (
-    <div className="dropdown" onMouseEnter={() => setIsOpen(true)} onMouseLeave={() => setIsOpen(false)}>
+    <div title="" className="dropdown" onMouseEnter={() => setIsOpen(true)} onMouseLeave={() => setIsOpen(false)}>
       <div className="dropdown-label">
         {children[0]}
         <img src={dropdownIcon} alt="arrow" style={{ marginLeft: 5 }} />
@@ -75,7 +76,7 @@ const DropdownItem = ({ children, icon, text='', noText, iconPL, iconPR, url }) 
   const iconClass = `icon ${iconPL ? 'icon_pl' : ''} ${iconPR ? 'icon_pr' : ''}`;
   return (
     <div className="dropdown-item">
-      <Link to={url} className="dropdown-link">
+      <Link to={url} className="dropdown-link" title={text}>
         {icon && <span className={iconClass}><img src={icon} alt={text} /></span>}
         {children || (noText ? '': text)}
       </Link>
@@ -90,26 +91,26 @@ const App = () => {
         <img src={siteLogo} alt="logo" style={{ height: 40, width: 40, marginRight: 10 }} />
         SiteName
       </MenuItem>
-      <MenuItem url="/">Item</MenuItem>
+      <MenuItem url="/" text="Basic Item">Item</MenuItem>
       <MenuItem text="Icon+text" url="/" icon={starIcon} iconPR></MenuItem>
-      <MenuItem>
+      <MenuItem text="MenuItem tooltip: Basic menu without icon or stuff">
         <Dropdown>
           Basic menu
           <DropdownMenu>
-            <DropdownItem url="/sidney">Sidney</DropdownItem>
-            <DropdownItem url="/stockholm">Stockholm</DropdownItem>
-            <DropdownItem url="/new-d elhi">New Delhi</DropdownItem>
-            <DropdownItem url="/beijing">Beijing</DropdownItem>
+            <DropdownItem text='Sidney' url="/sidney">Sidney</DropdownItem>
+            <DropdownItem text="Stockholm" url="/stockholm">Stockholm</DropdownItem>
+            <DropdownItem text="New Delhi" url="/new-d elhi">New Delhi</DropdownItem>
+            <DropdownItem text="Beijing" url="/beijing">Beijing</DropdownItem>
           </DropdownMenu>
         </Dropdown>
       </MenuItem>
       <MenuItem>
-        <Dropdown>
+        <Dropdown text='Fancy Dropdown'>
           <div style={{ margin: 0, padding: 0, display: "flex", alignItems: "center" }}>
             Fancy Dropdown
             <img style={{ height: 20, marginLeft: 8 }} src={logOutIcon} alt="лого" />
           </div>
-          <DropdownMenu>
+          <DropdownMenu text=''>
             <MenuHeader>
               <span style={{ marginRight: 10 }}>Cities</span>
               <button type="button" style={{ cursor: "pointer" }}>
@@ -117,15 +118,10 @@ const App = () => {
               </button>
             </MenuHeader>
             <hr />
-            <DropdownItem url="/sidney">
-              <div style={{ margin: 0, padding: 0, display: "flex", alignItems: "center" }}>
-                <img src={starIcon} alt="star" style={{ marginRight: 10 }} />
-                Sidney
-              </div>
-            </DropdownItem>
-            <DropdownItem url="/stockholm">Stockholm</DropdownItem>
-            <DropdownItem url="/new-d elhi">New Delhi</DropdownItem>
-            <DropdownItem url="/beijing">Beijing</DropdownItem>
+            <DropdownItem text="Sidney" url="/sidney" icon={starIcon} iconPR/>
+            <DropdownItem text="Stockholm" url="/stockholm">Stockholm</DropdownItem>
+            <DropdownItem text="New Delhi" url="/new-delhi">New Delhi</DropdownItem>
+            <DropdownItem text="Beijing" url="/beijing">Beijing</DropdownItem>
             <hr />
             <p style={{ margin: "20px 20px" }}>Basic text. Just in case you need it. A comment or cue for user.</p>
             <hr />
