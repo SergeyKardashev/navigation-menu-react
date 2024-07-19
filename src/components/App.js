@@ -33,7 +33,7 @@ const MenuItem = ({ children, url, icon, text = "item", noText, iconPR, iconPL }
   return (
     <li className="menu-item">
       {(url) ? (
-        <Link to={url}>
+        <Link to={url} title={text}>
           { icon ? <img src={icon} alt={text} className={iconClass} /> : ''}
           {children || (noText ? '' : text)} 
         </Link>
