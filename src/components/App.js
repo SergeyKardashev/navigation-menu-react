@@ -70,12 +70,14 @@ const DropdownMenu = ({ children }) => {
 };
 
 // item of dropdown menu
-const DropdownItem = ({ children, icon, url }) => {
+const DropdownItem = ({ children, icon, text='', noText, iconPL, iconPR, url }) => {
+
+  const iconClass = `icon ${iconPL ? 'icon_pl' : ''} ${iconPR ? 'icon_pr' : ''}`;
   return (
     <div className="dropdown-item">
       <Link to={url} className="dropdown-link">
-        {icon && <span className="icon">{icon}</span>}
-        {children}
+        {icon && <span className={iconClass}><img src={icon} alt={text} /></span>}
+        {children || (noText ? '': text)}
       </Link>
     </div>
   );
@@ -128,18 +130,8 @@ const App = () => {
             <p style={{ margin: "20px 20px" }}>Basic text. Just in case you need it. A comment or cue for user.</p>
             <hr />
             <MenuHeader>Parks</MenuHeader>
-            <DropdownItem url="/central-park">
-              <div style={{ margin: 0, padding: 0, display: "flex", alignItems: "center" }}>
-                <img src={radioBtnIconOff} alt="bell" />
-                Central Park
-              </div>
-            </DropdownItem>
-            <DropdownItem url="/industrial-park">
-              <div style={{ margin: 0, padding: 0, display: "flex", alignItems: "center" }}>
-                <img src={radioBtnIconOn} alt="bell" />
-                Industrial Park
-              </div>
-            </DropdownItem>
+            <DropdownItem text='Central Park' url="/central-park" icon={radioBtnIconOff} iconPR />
+            <DropdownItem url="/industrial-park" text="Industrial Park" icon={radioBtnIconOn} iconPR />
           </DropdownMenu>
         </Dropdown>
       </MenuItem>
