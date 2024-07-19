@@ -55,7 +55,7 @@
   width: max-content;
   min-width: 100%;
   max-width: 300px;
-  padding-bottom: 30px;
+  padding: 10px 0px;
 }
 
 .dropdown:hover .dropdown-menu {

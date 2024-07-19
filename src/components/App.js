@@ -149,7 +149,6 @@ const App = () => {
                 log Out
               </div>
             </DropdownItem>
-
           </DropdownMenu>
         </Dropdown>
       </MenuItem>
