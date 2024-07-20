@@ -40,7 +40,7 @@ const MenuItem = ({ children, url, icon, text="item", noText, iconPR, iconPL }) 
     <li className="menu-item">
       {(url)
         ? (<Link to={url} title={text}>{content}</Link>)
-        : (<span className="menu-item" title={text}>{content}</span>)}
+        : (<span style={{width: '100%', display: 'flex', }} title={text}>{content}</span>)}
     </li>
   );
 };
