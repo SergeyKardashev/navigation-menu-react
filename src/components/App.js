@@ -39,8 +39,8 @@ const MenuItem = ({ children, url, icon, text="item", noText, iconPR, iconPL }) 
   return (
     <li className="menu-item">
       {(url)
-        ? (<Link to={url} title={text}>{content}</Link>)
-        : (<span style={{width: '100%', display: 'flex', }} title={text}>{content}</span>)}
+        ? (<Link to={url} title={text} style={{width: '100%', display: 'flex', padding: '0px 20px'}}>{content}</Link>)
+        : (<span style={{width: '100%', display: 'flex', justifyContent: 'flex-start'}} title={text}>{content}</span>)}
     </li>
   );
 };
@@ -57,7 +57,7 @@ const Dropdown = ({ children }) => {
   return (
     <div title="" className="dropdown" onMouseEnter={() => setIsOpen(true)} onMouseLeave={() => setIsOpen(false)}>
       <div className="dropdown-label">
-        {children[0]}
+        <span style={{width: '100%', display: 'flex', justifyContent: 'flex-start'}} >{children[0]}</span>
         <img src={dropdownIcon} alt="arrow" style={{ marginLeft: 5 }} />
       </div>
       {isOpen && <div className="dropdown-menu">{children[1]}</div>}
@@ -93,7 +93,7 @@ const App = () => {
       </MenuItem>
       <MenuItem url="/" text="Basic Item">Item</MenuItem>
       <MenuItem text="Icon+text" url="/" icon={starIcon} iconPR></MenuItem>
-      <MenuItem text="MenuItem tooltip: Basic menu without icon or stuff">
+      <MenuItem text="Basic menu" title="MenuItem tooltip: Basic menu without icon or stuff">
         <Dropdown>
           Basic menu
           <DropdownMenu>

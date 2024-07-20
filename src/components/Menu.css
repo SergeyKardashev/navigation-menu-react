@@ -9,8 +9,9 @@
 }
 
 .menu-item {
-  padding-left: 20px;
-  padding-right: 20px;
+  padding: 0;
+  /* padding-left: 20px; */
+  /* padding-right: 20px; */
   position: relative;
   display: flex;
   align-items: stretch;
@@ -24,7 +25,7 @@
 }
 
 .menu-item:hover {
-  background-color: cadetblue;
+  background-color: #F0F2F5;
 }
 
 .dropdown {
@@ -35,8 +36,23 @@
 }
 
 .dropdown-label {
+  padding: 0px 20px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  /* background-color: rgb(255, 252, 204); */
+  white-space: nowrap;
+}
+
+.dropdown-label-content {
   display: flex;
   align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.dropdown-label span {
+  flex: 1;
 }
 
 .dropdown-icon {
