@@ -34,7 +34,9 @@ const Menu = ({ children }) => {
 };
 
 // Main item. Can contain sub menu (dropdown)
-const MenuItem = ({ children, url, icon, text = "item", noText, iconPR, iconPL, alt = text }) => {
+const MenuItem = ({ children, url, icon, text = "item", noText, iconPR, iconPL, alt = text, alignR }) => {
+  const menuItemClass = `menu-item ${alignR ? 'menu-item__align-right' : ''}`;
+  
   const iconClass = `icon ${iconPR ? "icon_pr" : ""} ${iconPL ? "icon_pl" : ""}`;
   const content = (
     <>
@@ -44,7 +46,7 @@ const MenuItem = ({ children, url, icon, text = "item", noText, iconPR, iconPL, 
   );
 
   return (
-    <li className="menu-item">
+    <li className={menuItemClass}>
       {url ? (
         <Link to={url} title={text} style={{ width: "100%", display: "flex", padding: "0px 20px" }}>
           {content}
@@ -215,7 +217,7 @@ const App = () => {
           icon={bellIcon}
           alt={T.translate("notificationsIcon")}
         ></MenuItem>
-        <MenuItem>
+        <MenuItem alignR>
           <Dropdown>
             <div style={{ margin: 0, padding: 0, display: "flex", alignItems: "center" }}>
               <img

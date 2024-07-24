@@ -18,6 +18,10 @@
   /* white-space: nowrap; */
 }
 
+.menu-item__align-right {
+  margin-left: auto;
+}
+
 .menu-item a {
   color: inherit;
   text-decoration: none;
