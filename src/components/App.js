@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
+// translations
+import T from "i18n-react";
+import { translations } from "../translations";
+
 import "./Menu.css";
 // arbitrary images
 import siteLogo from "../images/site-logo.svg";
@@ -20,6 +24,10 @@ import feedbackIcon from "../images/profile-feedback-icon.svg";
 import settingsIcon from "../images/profile-settings-icon.svg";
 import logOutIcon from "../images/profile-logout-icon.svg";
 import starIcon from "../images/city-star-icon.svg";
+import fancyDropdownIconL from "../images/fancy-icon-left.svg";
+import fancyDropdownIconR from "../images/fancy-icon-right.svg";
+
+T.setTexts(translations.en);
 
 // wrapper for entire Menu with submenu
 const Menu = ({ children }) => {
@@ -27,20 +35,26 @@ const Menu = ({ children }) => {
 };
 
 // Main item. Can contain sub menu (dropdown)
-const MenuItem = ({ children, url, icon, text="item", noText, iconPR, iconPL }) => {
+const MenuItem = ({ children, url, icon, text = "item", noText, iconPR, iconPL, alt=text }) => {
   const iconClass = `icon ${iconPR ? "icon_pr" : ""} ${iconPL ? "icon_pl" : ""}`;
   const content = (
     <>
-      {icon ? <img src={icon} alt={text} className={iconClass} /> : ''}
-      {children || (noText ? '' : text)}
+      {icon ? <img src={icon} alt={alt} className={iconClass} /> : ""}
+      {children || (noText ? "" : text)}
     </>
   );
 
   return (
     <li className="menu-item">
-      {(url)
-        ? (<Link to={url} title={text} style={{width: '100%', display: 'flex', padding: '0px 20px'}}>{content}</Link>)
-        : (<span style={{width: '100%', display: 'flex', justifyContent: 'flex-start'}} title={text}>{content}</span>)}
+      {url ? (
+        <Link to={url} title={text} style={{ width: "100%", display: "flex", padding: "0px 20px" }}>
+          {content}
+        </Link>
+      ) : (
+        <span title={text} style={{ width: "100%", display: "flex", justifyContent: "flex-start" }} >
+          {content}
+        </span>
+      )}
     </li>
   );
 };
@@ -57,8 +71,8 @@ const Dropdown = ({ children }) => {
   return (
     <div title="" className="dropdown" onMouseEnter={() => setIsOpen(true)} onMouseLeave={() => setIsOpen(false)}>
       <div className="dropdown-label">
-        <span style={{width: '100%', display: 'flex', justifyContent: 'flex-start'}} >{children[0]}</span>
-        <img src={dropdownIcon} alt="arrow" style={{ marginLeft: 5 }} />
+        <span style={{ width: "100%", display: "flex", justifyContent: "flex-start" }}>{children[0]}</span>
+        <img src={dropdownIcon} alt={T.translate('downArrow')} style={{ marginLeft: 5 }} />
       </div>
       {isOpen && <div className="dropdown-menu">{children[1]}</div>}
     </div>
@@ -71,14 +85,17 @@ const DropdownMenu = ({ children }) => {
 };
 
 // item of dropdown menu
-const DropdownItem = ({ children, icon, text='', noText, iconPL, iconPR, url }) => {
-
-  const iconClass = `icon ${iconPL ? 'icon_pl' : ''} ${iconPR ? 'icon_pr' : ''}`;
+const DropdownItem = ({ children, icon, text = "", noText, iconPL, iconPR, url }) => {
+  const iconClass = `icon ${iconPL ? "icon_pl" : ""} ${iconPR ? "icon_pr" : ""}`;
   return (
     <div className="dropdown-item">
       <Link to={url} className="dropdown-link" title={text}>
-        {icon && <span className={iconClass}><img src={icon} alt={text} /></span>}
-        {children || (noText ? '': text)}
+        {icon && (
+          <span className={iconClass}>
+            <img src={icon} alt={text} />
+          </span>
+        )}
+        {children || (noText ? "" : text)}
       </Link>
     </div>
   );
@@ -87,93 +104,69 @@ const DropdownItem = ({ children, icon, text='', noText, iconPL, iconPR, url }) 
 const App = () => {
   return (
     <Menu>
-      <MenuItem name="ну точно мой" url="/">
-        <img src={siteLogo} alt="logo" style={{ height: 40, width: 40, marginRight: 10 }} />
-        SiteName
+      <MenuItem text='это все мое' url="/">
+        <img src={siteLogo} alt={T.translate("siteLogo")} style={{ height: 40, width: 40, marginRight: 10 }} />
+        {T.translate("siteName")}
       </MenuItem>
-      <MenuItem url="/" text="Basic Item">Item</MenuItem>
-      <MenuItem text="Icon+text" url="/" icon={starIcon} iconPR></MenuItem>
-      <MenuItem text="Basic menu" title="MenuItem tooltip: Basic menu without icon or stuff">
+      <MenuItem text={T.translate('menuItem')} url="/"/>
+      <MenuItem text={T.translate('iconAndText')} url="/" icon={starIcon} alt={T.translate('starIcon')} iconPR></MenuItem>
+      <MenuItem >
         <Dropdown>
-          Basic menu
+          {T.translate('basicMenu')}
           <DropdownMenu>
-            <DropdownItem text='Sidney' url="/sidney">Sidney</DropdownItem>
-            <DropdownItem text="Stockholm" url="/stockholm">Stockholm</DropdownItem>
-            <DropdownItem text="New Delhi" url="/new-d elhi">New Delhi</DropdownItem>
-            <DropdownItem text="Beijing" url="/beijing">Beijing</DropdownItem>
+            <DropdownItem text={T.translate('city.sidney')} url="/sidney"/>
+            <DropdownItem text={T.translate('city.stockholm')} url="/stockholm"/>
+            <DropdownItem text={T.translate('city.newDelhi')} url="/new-delhi"/>
+            <DropdownItem text={T.translate('city.beijing')} url="/beijing"/>
           </DropdownMenu>
         </Dropdown>
       </MenuItem>
       <MenuItem>
-        <Dropdown text='Fancy Dropdown'>
+        <Dropdown>
           <div style={{ margin: 0, padding: 0, display: "flex", alignItems: "center" }}>
-            Fancy Dropdown
-            <img style={{ height: 20, marginLeft: 8 }} src={logOutIcon} alt="лого" />
+            <img src={fancyDropdownIconL} alt="лого" style={{ height: 20 }} />
+            <span style={{ color: "coral" }}>{T.translate("fancyDropdown")}</span>
+            <img src={fancyDropdownIconR} alt={T.translate("fancyDropdownIcon")} style={{ height: 20 }} />
           </div>
-          <DropdownMenu text=''>
+          <DropdownMenu >
             <MenuHeader>
-              <span style={{ marginRight: 10 }}>Cities</span>
+              <span style={{ marginRight: 10 }}>{T.translate('cities')}</span>
               <button type="button" style={{ cursor: "pointer" }}>
-                I'm a button
+                {T.translate('IAmAButton')}
               </button>
             </MenuHeader>
             <hr />
-            <DropdownItem text="Sidney" url="/sidney" icon={starIcon} iconPR/>
-            <DropdownItem text="Stockholm" url="/stockholm">Stockholm</DropdownItem>
-            <DropdownItem text="New Delhi" url="/new-delhi">New Delhi</DropdownItem>
-            <DropdownItem text="Beijing" url="/beijing">Beijing</DropdownItem>
+            <DropdownItem text={T.translate('city.sidney')} url="/sidney" icon={starIcon} iconPR alt={T.translate('starIcon')} />
+            <DropdownItem text={T.translate('city.stockholm')} url="/stockholm"/>
+            <DropdownItem text={T.translate('city.newDelhi')} url="/new-delhi"/>
+            <DropdownItem text={T.translate('city.beijing')} url="/beijing"/>
             <hr />
-            <p style={{ margin: "20px 20px" }}>Basic text. Just in case you need it. A comment or cue for user.</p>
+            <p style={{ margin: "20px 20px" }}>{T.translate('basicText')}</p>
             <hr />
-            <MenuHeader>Parks</MenuHeader>
-            <DropdownItem text='Central Park' url="/central-park" icon={radioBtnIconOff} iconPR />
-            <DropdownItem url="/industrial-park" text="Industrial Park" icon={radioBtnIconOn} iconPR />
+            <MenuHeader>{T.translate('parks')}</MenuHeader>
+            <DropdownItem text={T.translate('centralPark')} url="/central-park" icon={radioBtnIconOff} iconPR alt={T.translate('radioButtonOffIcon')} />
+            <DropdownItem text={T.translate('industrialPark')} url="/industrial-park" icon={radioBtnIconOn} iconPR alt={T.translate('radioButtonOnIcon')}/>
           </DropdownMenu>
         </Dropdown>
       </MenuItem>
-      <MenuItem text="Bookmarks" noText url="/bookmark" icon={bookmarkIcon} />
-      <MenuItem text="Notifications" noText url="/notifications" icon={bellIcon}></MenuItem>
+      <MenuItem text={T.translate('bookmarks')} noText url="/bookmark" icon={bookmarkIcon} alt={T.translate('bookmarksIcon')} />
+      <MenuItem text={T.translate('notifications')} noText url="/notifications" icon={bellIcon} alt={T.translate('notificationsIcon')} ></MenuItem>
       <MenuItem>
         <Dropdown>
           <div style={{ margin: 0, padding: 0, display: "flex", alignItems: "center" }}>
             <img
-              alt="avatar"
+              alt={T.translate('avatarIcon')}
               src={avatarIcon}
               style={{ height: 40, marginRight: 8, border: "1px solid gray", borderRadius: "50%" }}
             />
-            Profile Menu
+            {T.translate('profileMenu')}
           </div>
           <DropdownMenu>
-            <DropdownItem url="/profile">
-              <div style={{ margin: 0, padding: 0, display: "flex", alignItems: "center" }}>
-                <img src={profileProfileIcon} alt="profile" style={{ marginRight: 10 }} />
-                Profile
-              </div>
-            </DropdownItem>
-            <DropdownItem url="/articles-management">
-              <div style={{ margin: 0, padding: 0, display: "flex", alignItems: "center" }}>
-                <img src={articlesManageIcon} alt="articles management" style={{ marginRight: 10 }} />
-                Articles Management
-              </div>
-            </DropdownItem>
-            <DropdownItem url="/feedback">
-              <div style={{ margin: 0, padding: 0, display: "flex", alignItems: "center" }}>
-                <img src={feedbackIcon} alt="Feedback" style={{ marginRight: 10 }} />
-                Feedback
-              </div>
-            </DropdownItem>
-            <DropdownItem url="/settings">
-              <div style={{ margin: 0, padding: 0, display: "flex", alignItems: "center" }}>
-                <img src={settingsIcon} alt="settings" style={{ marginRight: 10 }} />
-                Settings
-              </div>
-            </DropdownItem>
-            <DropdownItem url="/logout">
-              <div style={{ margin: 0, padding: 0, display: "flex", alignItems: "center" }}>
-                <img src={logOutIcon} alt="Log out" style={{ marginRight: 10 }} />
-                Log out
-              </div>
-            </DropdownItem>
+            <DropdownItem text={T.translate('profile')} url="/profile" icon={profileProfileIcon} iconPR alt={T.translate('profileIcon')} />
+            <DropdownItem text={T.translate('articlesManagement')} url="/articles-management" icon={articlesManageIcon} iconPR alt={T.translate('articlesManageIcon')} />
+            <DropdownItem text={T.translate('feedback')} url="/feedback" icon={feedbackIcon} iconPR alt={T.translate('feedbackIcon')} />
+            <DropdownItem text={T.translate('settings')} url="/settings" icon={settingsIcon} iconPR alt={T.translate('settingsIcon')} />
+            <DropdownItem text={T.translate('logout')} url="/logout" icon={logOutIcon} iconPR alt={T.translate('logoutIcon')} />
           </DropdownMenu>
         </Dropdown>
       </MenuItem>

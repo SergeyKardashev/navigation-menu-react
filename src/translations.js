@@ -1,32 +1,108 @@
 // Задаем тексты для двух языков
 export const translations = {
-    en: {
-      siteName: 'Family Site',
-      userParams: {
-        firstName: 'First Name',
-        email: 'Email',
-      }
+  en: {
+    // demo start
+    siteName: "Family Site",
+    siteLogo: "Site Logo",
+    menuItem: "Link",
+    basicMenu: "Basic Menu",
+    downArrow: "Down arrow",
+    iconAndText: "Icon+Text",
+    starIcon: "Star icon",
+    fancyDropdown: "Fancy Dropdown",
+    fancyDropdownIcon: "Fancy Dropdown Icon",
+    cities: 'Cities',
+    city: {
+      sidney: "Sidney",
+      stockholm: "Stockholm",
+      newDelhi: "New Delhi",
+      beijing: "Beijing",
     },
-    ru: {
-      siteName: 'Семейный сайт',
-      userParams: {
-        firstName: 'Имя',
-        email: 'Почта',
-        settings: 'Настройки',
+    IAmAButton: 'I\'m a button',
+    basicText: 'Basic text. Just in case you need it. A comment or cue for user.',
+    radioButtonOffIcon: 'Radio button is off icon',
+    radioButtonOnIcon: 'Radio button is on icon',
+    parks: 'Parks',
+    centralPark: 'Central Park',
+    industrialPark: 'Industrial Park',
+    bookmarks: "Bookmarks",
+    bookmarksIcon: "Bookmarks icon",
+    notifications: "Notifications",
+    notificationsIcon: "NotificationsIcon",
+    avatarIcon: "Avatar icon",
+    profile: "Profile",
+    profileMenu: "Profile Menu",
+    profileIcon: "Profile icon",
+    articlesManagement: 'articles management',
+    articlesManageIcon: 'articles management icon',
+    feedback: 'Feedback',
+    feedbackIcon: 'Feedback icon',
+    settings: 'Settings',
+    settingsIcon: 'Settings icon',
+    logout: 'Log out',
+    logoutIcon: 'Log out icon',
+
+    userParams: {
+      firstName: "First Name",
+      email: "Email",
+    },
+    // demo end
+    },
+    // siteName: "Family Site",
+    // userParams: {
+    //   firstName: "First Name",
+    //   email: "Email",
+    // },
+    nav: {
+      timeline: "Feed",
+      moderation: "Site Moderation",
+      notifications: "Notifications",
+      bookmarks: "Bookmarks",
+      otherSites: "Other Sites",
+      other: "Other",
+      tree: "Tree",
+      articles: "Articles",
+      footer: {
+        prices: "Prices",
+        feedback: "Feedback",
       },
-      nav: {
-        timeline: 'Лента',
-        moderation: 'Модерация сайта',
-        messages: 'Уведомления',
-        bookmarks: 'Закладки',
-        otherSites: 'Смежные страницы',
-        other: 'Другое',
-        tree: 'Древо',
-        articles: 'Статьи',
-        footer: {
-          prices: 'Цены',
-          feedback: 'Обратная связь'
-        }
-      }
-    }
+    },
+  ru: {
+    siteName: "Семейный сайт",
+    userParams: {
+      firstName: "Имя",
+      email: "Почта",
+      settings: "Настройки",
+    },
+    demo: {
+      siteName: "Семейный сайт",
+      siteLogo: "Логотип сайта",
+
+      menuItem: "Пункт меню",
+
+      iconAndText: "Icon+text",
+      basicMenu: "Простое мею",
+      city: {
+        sidney: "Sidney",
+        stockholm: "Stockholm",
+        newDelhi: "New Delhi",
+        beijing: "Beijing",
+      },
+      fancyDropdown: "Fancy Dropdown",
+    },
+    nav: {
+      timeline: "Лента",
+      moderation: "Модерация сайта",
+      notifications: "Уведомления",
+      bookmarks: "Закладки",
+      otherSites: "Смежные страницы",
+      other: "Другое",
+      tree: "Древо",
+      articles: "Статьи",
+      footer: {
+        prices: "Цены",
+        feedback: "Обратная связь",
+      },
+    },
+  },
 };
