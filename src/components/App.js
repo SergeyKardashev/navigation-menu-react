@@ -27,7 +27,6 @@ import starIcon from "../images/city-star-icon.svg";
 import fancyDropdownIconL from "../images/fancy-icon-left.svg";
 import fancyDropdownIconR from "../images/fancy-icon-right.svg";
 
-T.setTexts(translations.en);
 
 // wrapper for entire Menu with submenu
 const Menu = ({ children }) => {
@@ -103,6 +102,8 @@ const DropdownItem = ({ children, icon, text = "", noText, iconPL, iconPR, url }
 
 const App = () => {
   const [lang, setLang] = useState("en");
+
+  T.setTexts(translations[lang]);
 
   const changeLanguage = (language) => {
     setLang(language);
