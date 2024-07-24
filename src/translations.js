@@ -1,7 +1,5 @@
-// Задаем тексты для двух языков
 export const translations = {
   en: {
-    // demo start
     siteName: "Family Site",
     siteLogo: "Site Logo",
     menuItem: "Link",
@@ -41,34 +39,9 @@ export const translations = {
     settingsIcon: "Settings icon",
     logout: "Log out",
     logoutIcon: "Log out icon",
-    // demo end
+  },
 
-    userParams: {
-      firstName: "First Name",
-      email: "Email",
-    },
-  },
-  // siteName: "Family Site",
-  // userParams: {
-  //   firstName: "First Name",
-  //   email: "Email",
-  // },
-  nav: {
-    timeline: "Feed",
-    moderation: "Site Moderation",
-    notifications: "Notifications",
-    bookmarks: "Bookmarks",
-    otherSites: "Other Sites",
-    other: "Other",
-    tree: "Tree",
-    articles: "Articles",
-    footer: {
-      prices: "Prices",
-      feedback: "Feedback",
-    },
-  },
   ru: {
-    // demo start
     siteName: "Семейный Сайт",
     siteLogo: "Лого сайта",
     menuItem: "Ссылка",
@@ -108,43 +81,5 @@ export const translations = {
     settingsIcon: "Иконка настроек",
     logout: "Выйти",
     logoutIcon: "Иконка выхода",
-    // demo end
-
-    // siteName: "Семейный сайт",
-    userParams: {
-      firstName: "Имя",
-      email: "Почта",
-      settings: "Настройки",
-    },
-    demo: {
-      siteName: "Семейный сайт",
-      siteLogo: "Логотип сайта",
-
-      menuItem: "Пункт меню",
-
-      iconAndText: "Icon+text",
-      basicMenu: "Простое мею",
-      city: {
-        sidney: "Sidney",
-        stockholm: "Stockholm",
-        newDelhi: "New Delhi",
-        beijing: "Beijing",
-      },
-      fancyDropdown: "Fancy Dropdown",
-    },
-    nav: {
-      timeline: "Лента",
-      moderation: "Модерация сайта",
-      notifications: "Уведомления",
-      bookmarks: "Закладки",
-      otherSites: "Смежные страницы",
-      other: "Другое",
-      tree: "Древо",
-      articles: "Статьи",
-      footer: {
-        prices: "Цены",
-        feedback: "Обратная связь",
-      },
-    },
   },
 };

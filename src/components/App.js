@@ -35,7 +35,7 @@ const Menu = ({ children }) => {
 };
 
 // Main item. Can contain sub menu (dropdown)
-const MenuItem = ({ children, url, icon, text = "item", noText, iconPR, iconPL, alt=text }) => {
+const MenuItem = ({ children, url, icon, text = "item", noText, iconPR, iconPL, alt = text }) => {
   const iconClass = `icon ${iconPR ? "icon_pr" : ""} ${iconPL ? "icon_pl" : ""}`;
   const content = (
     <>
@@ -51,7 +51,7 @@ const MenuItem = ({ children, url, icon, text = "item", noText, iconPR, iconPL, 
           {content}
         </Link>
       ) : (
-        <span title={text} style={{ width: "100%", display: "flex", justifyContent: "flex-start" }} >
+        <span title={text} style={{ width: "100%", display: "flex", justifyContent: "flex-start" }}>
           {content}
         </span>
       )}
@@ -72,7 +72,7 @@ const Dropdown = ({ children }) => {
     <div title="" className="dropdown" onMouseEnter={() => setIsOpen(true)} onMouseLeave={() => setIsOpen(false)}>
       <div className="dropdown-label">
         <span style={{ width: "100%", display: "flex", justifyContent: "flex-start" }}>{children[0]}</span>
-        <img src={dropdownIcon} alt={T.translate('downArrow')} style={{ marginLeft: 5 }} />
+        <img src={dropdownIcon} alt={T.translate("downArrow")} style={{ marginLeft: 5 }} />
       </div>
       {isOpen && <div className="dropdown-menu">{children[1]}</div>}
     </div>
@@ -102,75 +102,169 @@ const DropdownItem = ({ children, icon, text = "", noText, iconPL, iconPR, url }
 };
 
 const App = () => {
+  const [lang, setLang] = useState("en");
+
+  const changeLanguage = (language) => {
+    setLang(language);
+    T.setTexts(translations[language]);
+  };
+
   return (
-    <Menu>
-      <MenuItem text='это все мое' url="/">
-        <img src={siteLogo} alt={T.translate("siteLogo")} style={{ height: 40, width: 40, marginRight: 10 }} />
-        {T.translate("siteName")}
-      </MenuItem>
-      <MenuItem text={T.translate('menuItem')} url="/"/>
-      <MenuItem text={T.translate('iconAndText')} url="/" icon={starIcon} alt={T.translate('starIcon')} iconPR></MenuItem>
-      <MenuItem >
-        <Dropdown>
-          {T.translate('basicMenu')}
-          <DropdownMenu>
-            <DropdownItem text={T.translate('city.sidney')} url="/sidney"/>
-            <DropdownItem text={T.translate('city.stockholm')} url="/stockholm"/>
-            <DropdownItem text={T.translate('city.newDelhi')} url="/new-delhi"/>
-            <DropdownItem text={T.translate('city.beijing')} url="/beijing"/>
-          </DropdownMenu>
-        </Dropdown>
-      </MenuItem>
-      <MenuItem>
-        <Dropdown>
-          <div style={{ margin: 0, padding: 0, display: "flex", alignItems: "center" }}>
-            <img src={fancyDropdownIconL} alt="лого" style={{ height: 20 }} />
-            <span style={{ color: "coral" }}>{T.translate("fancyDropdown")}</span>
-            <img src={fancyDropdownIconR} alt={T.translate("fancyDropdownIcon")} style={{ height: 20 }} />
-          </div>
-          <DropdownMenu >
-            <MenuHeader>
-              <span style={{ marginRight: 10 }}>{T.translate('cities')}</span>
-              <button type="button" style={{ cursor: "pointer" }}>
-                {T.translate('IAmAButton')}
-              </button>
-            </MenuHeader>
-            <hr />
-            <DropdownItem text={T.translate('city.sidney')} url="/sidney" icon={starIcon} iconPR alt={T.translate('starIcon')} />
-            <DropdownItem text={T.translate('city.stockholm')} url="/stockholm"/>
-            <DropdownItem text={T.translate('city.newDelhi')} url="/new-delhi"/>
-            <DropdownItem text={T.translate('city.beijing')} url="/beijing"/>
-            <hr />
-            <p style={{ margin: "20px 20px" }}>{T.translate('basicText')}</p>
-            <hr />
-            <MenuHeader>{T.translate('parks')}</MenuHeader>
-            <DropdownItem text={T.translate('centralPark')} url="/central-park" icon={radioBtnIconOff} iconPR alt={T.translate('radioButtonOffIcon')} />
-            <DropdownItem text={T.translate('industrialPark')} url="/industrial-park" icon={radioBtnIconOn} iconPR alt={T.translate('radioButtonOnIcon')}/>
-          </DropdownMenu>
-        </Dropdown>
-      </MenuItem>
-      <MenuItem text={T.translate('bookmarks')} noText url="/bookmark" icon={bookmarkIcon} alt={T.translate('bookmarksIcon')} />
-      <MenuItem text={T.translate('notifications')} noText url="/notifications" icon={bellIcon} alt={T.translate('notificationsIcon')} ></MenuItem>
-      <MenuItem>
-        <Dropdown>
-          <div style={{ margin: 0, padding: 0, display: "flex", alignItems: "center" }}>
-            <img
-              alt={T.translate('avatar')}
-              src={avatar}
-              style={{ height: 40, marginRight: 8, border: "1px solid gray", borderRadius: "50%" }}
-            />
-            {T.translate('profileMenu')}
-          </div>
-          <DropdownMenu>
-            <DropdownItem text={T.translate('profile')} url="/profile" icon={profileProfileIcon} iconPR alt={T.translate('profileIcon')} />
-            <DropdownItem text={T.translate('articlesManagement')} url="/articles-management" icon={articlesManageIcon} iconPR alt={T.translate('articlesManageIcon')} />
-            <DropdownItem text={T.translate('feedback')} url="/feedback" icon={feedbackIcon} iconPR alt={T.translate('feedbackIcon')} />
-            <DropdownItem text={T.translate('settings')} url="/settings" icon={settingsIcon} iconPR alt={T.translate('settingsIcon')} />
-            <DropdownItem text={T.translate('logout')} url="/logout" icon={logOutIcon} iconPR alt={T.translate('logoutIcon')} />
-          </DropdownMenu>
-        </Dropdown>
-      </MenuItem>
-    </Menu>
+    <>
+      <div style={{ fontSize: 20, padding: 20, textAlign: "right" }}>
+        <span style={{ fontWeight: 700 }}>Language</span>
+        <button
+          style={{ fontSize: 20, padding: 5, margin: 10, textAlign: "right" }}
+          onClick={() => {
+            changeLanguage("ru");
+          }}
+        >
+          Русский
+        </button>
+        <button
+          style={{ fontSize: 20, padding: 5, margin: 10, textAlign: "right" }}
+          onClick={() => {
+            changeLanguage("en");
+          }}
+        >
+          English
+        </button>
+      </div>
+      <Menu>
+        <MenuItem text="это все мое" url="/">
+          <img src={siteLogo} alt={T.translate("siteLogo")} style={{ height: 40, width: 40, marginRight: 10 }} />
+          {T.translate("siteName")}
+        </MenuItem>
+        <MenuItem text={T.translate("menuItem")} url="/" />
+        <MenuItem
+          text={T.translate("iconAndText")}
+          url="/"
+          icon={starIcon}
+          alt={T.translate("starIcon")}
+          iconPR
+        ></MenuItem>
+        <MenuItem>
+          <Dropdown>
+            {T.translate("basicMenu")}
+            <DropdownMenu>
+              <DropdownItem text={T.translate("city.sidney")} url="/sidney" />
+              <DropdownItem text={T.translate("city.stockholm")} url="/stockholm" />
+              <DropdownItem text={T.translate("city.newDelhi")} url="/new-delhi" />
+              <DropdownItem text={T.translate("city.beijing")} url="/beijing" />
+            </DropdownMenu>
+          </Dropdown>
+        </MenuItem>
+        <MenuItem>
+          <Dropdown>
+            <div style={{ margin: 0, padding: 0, display: "flex", alignItems: "center" }}>
+              <img src={fancyDropdownIconL} alt="лого" style={{ height: 20 }} />
+              <span style={{ color: "coral" }}>{T.translate("fancyDropdown")}</span>
+              <img src={fancyDropdownIconR} alt={T.translate("fancyDropdownIcon")} style={{ height: 20 }} />
+            </div>
+            <DropdownMenu>
+              <MenuHeader>
+                <span style={{ marginRight: 10 }}>{T.translate("cities")}</span>
+                <button type="button" style={{ cursor: "pointer" }}>
+                  {T.translate("IAmAButton")}
+                </button>
+              </MenuHeader>
+              <hr />
+              <DropdownItem
+                text={T.translate("city.sidney")}
+                url="/sidney"
+                icon={starIcon}
+                iconPR
+                alt={T.translate("starIcon")}
+              />
+              <DropdownItem text={T.translate("city.stockholm")} url="/stockholm" />
+              <DropdownItem text={T.translate("city.newDelhi")} url="/new-delhi" />
+              <DropdownItem text={T.translate("city.beijing")} url="/beijing" />
+              <hr />
+              <p style={{ margin: "20px 20px" }}>{T.translate("basicText")}</p>
+              <hr />
+              <MenuHeader>{T.translate("parks")}</MenuHeader>
+              <DropdownItem
+                text={T.translate("centralPark")}
+                url="/central-park"
+                icon={radioBtnIconOff}
+                iconPR
+                alt={T.translate("radioButtonOffIcon")}
+              />
+              <DropdownItem
+                text={T.translate("industrialPark")}
+                url="/industrial-park"
+                icon={radioBtnIconOn}
+                iconPR
+                alt={T.translate("radioButtonOnIcon")}
+              />
+            </DropdownMenu>
+          </Dropdown>
+        </MenuItem>
+        <MenuItem
+          text={T.translate("bookmarks")}
+          noText
+          url="/bookmark"
+          icon={bookmarkIcon}
+          alt={T.translate("bookmarksIcon")}
+        />
+        <MenuItem
+          text={T.translate("notifications")}
+          noText
+          url="/notifications"
+          icon={bellIcon}
+          alt={T.translate("notificationsIcon")}
+        ></MenuItem>
+        <MenuItem>
+          <Dropdown>
+            <div style={{ margin: 0, padding: 0, display: "flex", alignItems: "center" }}>
+              <img
+                alt={T.translate("avatar")}
+                src={avatar}
+                style={{ height: 40, marginRight: 8, border: "1px solid gray", borderRadius: "50%" }}
+              />
+              {T.translate("profileMenu")}
+            </div>
+            <DropdownMenu>
+              <DropdownItem
+                text={T.translate("profile")}
+                url="/profile"
+                icon={profileProfileIcon}
+                iconPR
+                alt={T.translate("profileIcon")}
+              />
+              <DropdownItem
+                text={T.translate("articlesManagement")}
+                url="/articles-management"
+                icon={articlesManageIcon}
+                iconPR
+                alt={T.translate("articlesManageIcon")}
+              />
+              <DropdownItem
+                text={T.translate("feedback")}
+                url="/feedback"
+                icon={feedbackIcon}
+                iconPR
+                alt={T.translate("feedbackIcon")}
+              />
+              <DropdownItem
+                text={T.translate("settings")}
+                url="/settings"
+                icon={settingsIcon}
+                iconPR
+                alt={T.translate("settingsIcon")}
+              />
+              <DropdownItem
+                text={T.translate("logout")}
+                url="/logout"
+                icon={logOutIcon}
+                iconPR
+                alt={T.translate("logoutIcon")}
+              />
+            </DropdownMenu>
+          </Dropdown>
+        </MenuItem>
+      </Menu>
+    </>
   );
 };
 
