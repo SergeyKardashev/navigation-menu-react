@@ -8,7 +8,7 @@ import { translations } from "../translations";
 import "./Menu.css";
 // arbitrary images
 import siteLogo from "../images/site-logo.svg";
-import avatarIcon from "../images/avatar-my.svg";
+import avatar from "../images/avatar-my.svg";
 
 // main menu icons
 import bellIcon from "../images/bell-icon.svg";
@@ -155,8 +155,8 @@ const App = () => {
         <Dropdown>
           <div style={{ margin: 0, padding: 0, display: "flex", alignItems: "center" }}>
             <img
-              alt={T.translate('avatarIcon')}
-              src={avatarIcon}
+              alt={T.translate('avatar')}
+              src={avatar}
               style={{ height: 40, marginRight: 8, border: "1px solid gray", borderRadius: "50%" }}
             />
             {T.translate('profileMenu')}
