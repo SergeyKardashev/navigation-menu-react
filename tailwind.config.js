@@ -2,8 +2,12 @@
 module.exports = {
   content: [],
   theme: {
-    extend: {},
+    extend: {
+      content: {
+        arrowDownIcon: 'url("/src/images/arrow.svg")',
+      },
+    },
   },
+  variants: {},
   plugins: [],
-}
-
+};
