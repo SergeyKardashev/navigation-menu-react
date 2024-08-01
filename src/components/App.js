@@ -27,16 +27,15 @@ import starIcon from "../images/city-star-icon.svg";
 import fancyDropdownIconL from "../images/fancy-icon-left.svg";
 import fancyDropdownIconR from "../images/fancy-icon-right.svg";
 
-
 // wrapper for entire Menu with submenu
 const Menu = ({ children }) => {
-  return <ul className="menu">{children}</ul>;
+  return <ul className="list-none p-0 m-0 flex items-stretch bg-white min-h-20">{children}</ul>;
 };
 
 // Main item. Can contain sub menu (dropdown)
 const MenuItem = ({ children, url, icon, text = "item", noText, iconPR, iconPL, alt = text, alignR }) => {
-  const menuItemClass = `menu-item ${alignR ? 'menu-item__align-right' : ''}`;
-  
+  const menuItemClass = `p-0 relative flex items-stretch ${alignR ? "ml-auto" : ""}`;
+
   const iconClass = `icon ${iconPR ? "icon_pr" : ""} ${iconPL ? "icon_pl" : ""}`;
   const content = (
     <>
@@ -48,11 +47,20 @@ const MenuItem = ({ children, url, icon, text = "item", noText, iconPR, iconPL, 
   return (
     <li className={menuItemClass}>
       {url ? (
-        <Link to={url} title={text} style={{ width: "100%", display: "flex", padding: "0px 20px" }}>
+        <Link
+          to={url}
+          title={text}
+          className="w-full flex px-5 py-0"
+          // style={{ width: "100%", display: "flex", padding: "0px 20px" }}
+        >
           {content}
         </Link>
       ) : (
-        <span title={text} style={{ width: "100%", display: "flex", justifyContent: "flex-start" }}>
+        <span
+          title={text}
+          className="w-full flex jus justify-start"
+          // style={{ width: "100%", display: "flex", justifyContent: "flex-start" }}
+        >
           {content}
         </span>
       )}
@@ -114,21 +122,21 @@ const App = () => {
 
   return (
     <>
-      <div style={{ fontSize: 20, padding: 20, textAlign: "right" }}>
-        <span style={{ fontWeight: 700 }}>Language</span>
+      <div className="text-right text-2xl p-4">
+        <span className="font-bold pr-4">Language</span>
         <button
-          style={{ fontSize: 20, padding: 5, margin: 10, textAlign: "right" }}
           onClick={() => {
             changeLanguage("ru");
           }}
+          className="bg-white px-4 py-2 mr-4"
         >
           Русский
         </button>
         <button
-          style={{ fontSize: 20, padding: 5, margin: 10, textAlign: "right" }}
           onClick={() => {
             changeLanguage("en");
           }}
+          className="bg-white px-4 py-2"
         >
           English
         </button>
