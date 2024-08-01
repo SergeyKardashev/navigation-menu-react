@@ -125,10 +125,15 @@ const DropdownMenu = ({ children }) => {
 
 // item of dropdown menu
 const DropdownItem = ({ children, icon, text = "", noText, iconPL, iconPR, url }) => {
-  const iconClass = `icon ${iconPL ? "icon_pl" : ""} ${iconPR ? "icon_pr" : ""}`;
+  // const iconClass = `icon ${iconPL ? "icon_pl" : ""} ${iconPR ? "icon_pr" : ""}`;
+  const iconClass = `w-5 h-5 inline-block items-center ${iconPL ? "pl-2" : ""} ${iconPR ? "pr-2" : ""}`;
   return (
-    <div className="dropdown-item">
-      <Link to={url} className="dropdown-link" title={text}>
+    <div className='px-5 py-2.5'>
+      {/* <div className="dropdown-item"> */}
+      <Link to={url} className="" title={text}>
+        {/* no such class as dropdown-link, 
+        but there is selector `.menu-item a` */}
+        {/* <Link to={url} className="dropdown-link" title={text}> */}
         {icon && (
           <span className={iconClass}>
             <img src={icon} alt={text} />
