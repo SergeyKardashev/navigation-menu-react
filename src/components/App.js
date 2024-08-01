@@ -70,7 +70,13 @@ const MenuItem = ({ children, url, icon, text = "item", noText, iconPR, iconPL, 
 
 // Header inside menu. It can live on its onw, but cat has list as a child
 const MenuHeader = ({ children }) => {
-  return <div className="dropdown-item dropdown-item_header">{children}</div>;
+  return (
+    <div
+      className='px-2 py-5 cursor-default font-black flex flex-nowrap justify-between items-center'
+      // className="dropdown-item dropdown-item_header"
+    >
+      {children}
+  </div>);
 };
 
 // wrapper for label of dropdown and list of items
@@ -78,12 +84,36 @@ const Dropdown = ({ children }) => {
   const [isOpen, setIsOpen] = useState(true);
 
   return (
-    <div title="" className="dropdown" onMouseEnter={() => setIsOpen(true)} onMouseLeave={() => setIsOpen(false)}>
-      <div className="dropdown-label">
-        <span style={{ width: "100%", display: "flex", justifyContent: "flex-start" }}>{children[0]}</span>
-        <img src={dropdownIcon} alt={T.translate("downArrow")} style={{ marginLeft: 5 }} />
+    <div
+      title=""
+      // className="dropdown"
+      className="cursor-pointer flex items-stretch relative"
+      onMouseEnter={() => setIsOpen(true)}
+      onMouseLeave={() => setIsOpen(false)}
+    >
+      <div
+        // className="dropdown-label"
+        className="py-0 flex justify-start items-center	whitespace-nowrap"
+      >
+        <span
+          className="w-full flex justify-start"
+          // style={{ width: "100%", display: "flex", justifyContent: "flex-start" }}
+        >
+          {children[0]}
+        </span>
+        <img
+          src={dropdownIcon}
+          alt={T.translate("downArrow")}
+          className='ml-1'
+          // style={{ marginLeft: 5 }}
+        />
       </div>
-      {isOpen && <div className="dropdown-menu">{children[1]}</div>}
+      {isOpen && <div
+        // className="dropdown-menu"
+        className='block absolute top-full left-0 bg-white shadow-md z-10 w-max min-w-full max-w-80 px-0 py-2 cursor-default'
+      >
+        {children[1]}
+      </div>}
     </div>
   );
 };
