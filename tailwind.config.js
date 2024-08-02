@@ -6,6 +6,11 @@ module.exports = {
       content: {
         arrowDownIcon: 'url("/src/images/arrow.svg")',
       },
+      colors: {
+        'menu-hover': '#F0F2F5',
+        'coral': '#F57575',
+        'primary': '#7BBA4B'
+      }
     },
   },
   variants: {},
