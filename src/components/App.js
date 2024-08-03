@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 
 // translations
@@ -72,24 +72,59 @@ const MenuItem = ({ children, url, icon, text = "item", noText, iconPR, iconPL, 
 const MenuHeader = ({ children }) => {
   return (
     <div
-      className='px-5 py-2 cursor-default font-black flex flex-nowrap justify-between items-center'
+      className="px-5 py-2 cursor-default font-black flex flex-nowrap justify-between items-center"
       // className="dropdown-item dropdown-item_header"
     >
       {children}
-  </div>);
+    </div>
+  );
 };
 
 // wrapper for label of dropdown and list of items
 const Dropdown = ({ children }) => {
+  // 🔴 useState(true) makes dropdown menu open by default. Fix before release
   const [isOpen, setIsOpen] = useState(true);
+
+  // 🟡 style variable
+  const [position, setPosition] = useState("left-0");
+
+  // 🟡 useRef provides the link to dropdown list (container of items)
+  // It refers to the DOM item that has property 'ref={dropdownRef}'
+  const dropdownRef = useRef(null);
+
+
+  const handleMouseEnter = () => {
+    setIsOpen(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsOpen(false);
+  };
+
+  // 🟡 useEffeсt checks if dropdown fits the viewport
+  useEffect(() => {
+    // Check if menu is open and there is a link to DOMelement `dropdownRef` 
+    if (isOpen && dropdownRef.current) {
+      // Get dropdown menu dimensions
+      const dropdownRect = dropdownRef.current.getBoundingClientRect();
+      const parentRect = dropdownRef.current.parentNode.getBoundingClientRect();
+      if (dropdownRect.right > window.innerWidth) {
+        setPosition("right-0");
+      } else if (parentRect.left < 0) {
+        setPosition("left-0");
+      }
+    }
+  }, [isOpen]);
 
   return (
     <div
       title=""
       // className="dropdown"
       className="cursor-pointer flex items-stretch relative"
-      onMouseEnter={() => setIsOpen(true)}
-      onMouseLeave={() => setIsOpen(false)}
+      onMouseEnter={handleMouseEnter}
+      // 🔴 onMouseLeave makes menu close. Uncomment before release
+      onMouseLeave={handleMouseLeave}
+
     >
       <div
         // className="dropdown-label"
@@ -105,16 +140,19 @@ const Dropdown = ({ children }) => {
         <img
           src={dropdownIcon}
           alt={T.translate("downArrow")}
-          className='ml-1'
+          className="ml-1"
           // style={{ marginLeft: 5 }}
         />
       </div>
-      {isOpen && <div
-        // className="dropdown-menu"
-        className='block absolute top-full left-0 bg-white shadow-md z-10 w-max min-w-full max-w-80 px-0 py-2 cursor-default'
-      >
-        {children[1]}
-      </div>}
+      {isOpen && (
+        <div
+          ref={dropdownRef}
+          // className="dropdown-menu"
+          className={`block absolute top-full ${position} bg-white shadow-md z-10 w-max min-w-full max-w-80 px-0 py-2 cursor-default`}
+        >
+          {children[1]}
+        </div>
+      )}
     </div>
   );
 };
@@ -129,7 +167,7 @@ const DropdownItem = ({ children, icon, text = "", noText, iconPL, iconPR, url }
   // const iconClass = `icon ${iconPL ? "icon_pl" : ""} ${iconPR ? "icon_pr" : ""}`;
   const iconClass = `w-5 h-5 inline-block items-center ${iconPL ? "ml-2" : ""} ${iconPR ? "mr-2" : ""}`;
   return (
-    <div className='px-5 py-2.5 hover:bg-menu-hover'>
+    <div className="px-5 py-2.5 hover:bg-menu-hover">
       {/* <div className="dropdown-item"> */}
       <Link to={url} className="flex items-center" title={text}>
         {/* no such class as dropdown-link, 
@@ -183,7 +221,7 @@ const App = () => {
             src={siteLogo}
             alt={T.translate("siteLogo")}
             // style={{ height: 40, width: 40, marginRight: 10 }}
-            className='h-10 w-10 mr-2.5 rounded-full border-2 border-primary'
+            className="h-10 w-10 mr-2.5 rounded-full border-2 border-primary"
           />
           {T.translate("siteName")}
         </MenuItem>
@@ -210,13 +248,13 @@ const App = () => {
           <Dropdown>
             <div
               // style={{ margin: 0, padding: 0, display: "flex", alignItems: "center" }}
-              className='m-0 p-0 flex items-center'
+              className="m-0 p-0 flex items-center"
             >
               <img
                 src={fancyDropdownIconL}
                 alt="лого"
                 // style={{ height: 20 }}
-                className='h-5'
+                className="h-5"
               />
               <span
                 // style={{ color: "coral" }}
@@ -228,7 +266,7 @@ const App = () => {
                 src={fancyDropdownIconR}
                 alt={T.translate("fancyDropdownIcon")}
                 // style={{ height: 20 }}
-                className='h-5'
+                className="h-5"
               />
             </div>
             <DropdownMenu>
@@ -242,7 +280,7 @@ const App = () => {
                 <button
                   type="button"
                   // style={{ cursor: "pointer" }}
-                  className='px-2 py-1 cursor-pointer border border-solid border-gray-400 rounded font-normal'
+                  className="px-2 py-1 cursor-pointer border border-solid border-gray-400 rounded font-normal"
                 >
                   {T.translate("IAmAButton")}
                 </button>
@@ -261,7 +299,7 @@ const App = () => {
               <hr />
               <p
                 // style={{ margin: "20px 20px" }}
-                className='m-5'
+                className="m-5"
               >
                 {T.translate("basicText")}
               </p>
@@ -298,17 +336,18 @@ const App = () => {
           icon={bellIcon}
           alt={T.translate("notificationsIcon")}
         ></MenuItem>
+        {/* <MenuItem> */}
         <MenuItem alignR>
           <Dropdown>
             <div
               // style={{ margin: 0, padding: 0, display: "flex", alignItems: "center" }}
-              className='m-0 p-0 flex items-center'
+              className="m-0 p-0 flex items-center"
             >
               <img
                 alt={T.translate("avatar")}
                 src={avatar}
                 // style={{ height: 40, marginRight: 8, border: "1px solid gray", borderRadius: "50%" }}
-                className='h-10 mr-2 border border-solid border-gray-500 rounded-full'
+                className="h-10 mr-2 border border-solid border-gray-500 rounded-full"
               />
               {T.translate("profileMenu")}
             </div>
