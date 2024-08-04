@@ -254,12 +254,15 @@ const App = () => {
             </DropdownMenu>
           </Dropdown>
         </MenuItem>
+        {/* separator with ml-auto makes next items aligned right */}
+        <hr className="bg-menu-separator w-px h-16 p-0 ml-auto mt-auto mb-auto" />
         <MenuItem
           text={T.translate("bookmarks")}
           noText
           url="/bookmark"
           icon={bookmarkIcon}
           alt={T.translate("bookmarksIcon")}
+          // alignR
         />
         <MenuItem
           text={T.translate("notifications")}
@@ -267,8 +270,9 @@ const App = () => {
           url="/notifications"
           icon={bellIcon}
           alt={T.translate("notificationsIcon")}
+          // alignR
         ></MenuItem>
-        <MenuItem alignR>
+        <MenuItem >
           <Dropdown>
             <div className="m-0 p-0 flex items-center">
               <img
