@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 // translations
@@ -11,29 +11,20 @@ import avatar from "../images/avatar-my.svg";
 
 // main menu icons
 import bellIcon from "../images/bell-icon.svg";
-import bookmarkIcon from "../images/bookmark-icon.svg";
 
 // dropdown icons
 import dropdownIcon from "../images/dropdown-icon.svg";
-import radioBtnIconOff from "../images/radio-btn-icon-off.svg";
-import radioBtnIconOn from "../images/radio-btn-icon-on.svg";
-import profileProfileIcon from "../images/profile-profile-icon.svg";
-import articlesManageIcon from "../images/profile-articles-management-icon.svg";
-import feedbackIcon from "../images/profile-feedback-icon.svg";
 import settingsIcon from "../images/profile-settings-icon.svg";
 import logOutIcon from "../images/profile-logout-icon.svg";
-import starIcon from "../images/city-star-icon.svg";
-import fancyDropdownIconL from "../images/fancy-icon-left.svg";
-import fancyDropdownIconR from "../images/fancy-icon-right.svg";
+import hamburgerIcon from "../images/hamburger_menu.svg";
+import closeIcon from "../images/close_hamburger_menu.svg";
 
-// wrapper for entire Menu with submenu
 const Menu = ({ children }) => {
-  return <ul className="list-none p-0 m-0 flex items-stretch bg-white min-h-20">{children}</ul>;
+  return <ul className="bg-violet-300 md:bg-white h-16 md:min-h-20 list-none p-0 m-0 flex items-center">{children}</ul>;
 };
 
-// Main item. Can contain sub menu (dropdown)
-const MenuItem = ({ children, url, icon, text = "item", noText, iconPR, iconPL, alt = text, alignR }) => {
-  const menuItemClass = `p-0 relative flex items-stretch ${alignR ? "ml-auto" : ""} `;
+const MenuItem = ({ children, url, icon, text = "item", noText, iconPR, iconPL, alt = text, alignR, className }) => {
+  const menuItemClass = `p-0 relative flex items-center ${alignR ? "ml-auto" : ""} ${className || ""}`;
 
   const iconClass = `w-5 h-5 ${iconPR ? "mr-2" : ""} ${iconPL ? "ml-2" : ""}`;
   const content = (
@@ -50,7 +41,7 @@ const MenuItem = ({ children, url, icon, text = "item", noText, iconPR, iconPL, 
           {content}
         </Link>
       ) : (
-        <span title={text} className="w-full flex px-0 justify-start items-stretch hover:bg-menu-hover">
+        <span title={text} className="w-full flex px-5 justify-start items-stretch hover:bg-menu-hover">
           {content}
         </span>
       )}
@@ -58,23 +49,9 @@ const MenuItem = ({ children, url, icon, text = "item", noText, iconPR, iconPL, 
   );
 };
 
-// Header inside menu. It can live on its onw, but cat has list as a child
-const MenuHeader = ({ children }) => {
-  return (
-    <div className="px-5 py-2 cursor-default font-black flex flex-nowrap justify-between items-center">{children}</div>
-  );
-};
-
-// wrapper for label of dropdown and list of items
 const Dropdown = ({ children }) => {
-  // 🔴 useState(true) makes dropdown menu open by default. Fix before release
-  const [isOpen, setIsOpen] = useState(true);
-
-  // style variable
+  const [isOpen, setIsOpen] = useState(false);
   const [position, setPosition] = useState("left-0");
-
-  // useRef provides the link to dropdown list (container of items)
-  // It refers to the DOM item that has property 'ref={dropdownRef}'
   const dropdownRef = useRef(null);
 
   const handleMouseEnter = () => {
@@ -85,11 +62,8 @@ const Dropdown = ({ children }) => {
     setIsOpen(false);
   };
 
-  // 🟡 useEffeсt checks if dropdown fits the viewport
   useEffect(() => {
-    // Check if menu is open and there is a link to DOMelement `dropdownRef`
     if (isOpen && dropdownRef.current) {
-      // Get dropdown menu dimensions
       const dropdownRect = dropdownRef.current.getBoundingClientRect();
       const parentRect = dropdownRef.current.parentNode.getBoundingClientRect();
       if (dropdownRect.right > window.innerWidth) {
@@ -105,7 +79,6 @@ const Dropdown = ({ children }) => {
       title=""
       className="cursor-pointer flex items-stretch relative"
       onMouseEnter={handleMouseEnter}
-      // 🔴 onMouseLeave makes menu close. Uncomment before release
       onMouseLeave={handleMouseLeave}
     >
       <div className="px-5 py-0 flex justify-start items-center whitespace-nowrap ">
@@ -124,12 +97,10 @@ const Dropdown = ({ children }) => {
   );
 };
 
-// wrapper for list of items
 const DropdownMenu = ({ children }) => {
   return <>{children}</>;
 };
 
-// item of dropdown menu
 const DropdownItem = ({ children, icon, text = "", noText, iconPL, iconPR, url }) => {
   const iconClass = `w-5 h-5 inline-block items-center ${iconPL ? "ml-2" : ""} ${iconPR ? "mr-2" : ""}`;
   return (
@@ -148,6 +119,7 @@ const DropdownItem = ({ children, icon, text = "", noText, iconPL, iconPR, url }
 
 const App = () => {
   const [lang, setLang] = useState("en");
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   T.setTexts(translations[lang]);
 
@@ -156,123 +128,32 @@ const App = () => {
     T.setTexts(translations[language]);
   };
 
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
   return (
     <>
-      <div className="text-right text-xl p-4">
-        <span className="font-bold pr-4">Language</span>
-        <button
-          onClick={() => {
-            changeLanguage("ru");
-          }}
-          className="bg-white px-4 py-2 mr-4 rounded"
-        >
-          Русский
-        </button>
-        <button
-          onClick={() => {
-            changeLanguage("en");
-          }}
-          className="bg-white px-4 py-2 rounded"
-        >
-          English
-        </button>
-      </div>
       <Menu>
-        <MenuItem text="It's mine" url="/">
-          <img
-            src={siteLogo}
-            alt={T.translate("siteLogo")}
-            className="h-10 w-10 mr-2.5 rounded-full border-2 border-primary"
-          />
-          {T.translate("siteName")}
-        </MenuItem>
-        <MenuItem text={T.translate("menuItem")} url="/" />
-        <MenuItem
-          text={T.translate("iconAndText")}
-          url="/"
-          icon={starIcon}
-          alt={T.translate("starIcon")}
-          iconPR
-        ></MenuItem>
-        <MenuItem>
+        <MenuItem text={T.translate("siteName")} url="/" className="md:flex" />
+        <li className="ml-auto md:hidden flex items-center">
+          <button onClick={toggleMenu} className="p-4 focus:outline-none">
+            <img src={isMenuOpen ? closeIcon : hamburgerIcon} alt="menu toggle icon" className="w-6 h-6" />
+          </button>
+        </li>
+        <MenuItem text={T.translate("menuItem")} url="/" className="hidden md:flex" />
+        <MenuItem className="hidden md:flex">
           <Dropdown>
             {T.translate("basicMenu")}
             <DropdownMenu>
               <DropdownItem text={T.translate("city.sidney")} url="/sidney" />
               <DropdownItem text={T.translate("city.stockholm")} url="/stockholm" />
-              <DropdownItem text={T.translate("city.newDelhi")} url="/new-delhi" />
-              <DropdownItem text={T.translate("city.beijing")} url="/beijing" />
             </DropdownMenu>
           </Dropdown>
         </MenuItem>
-        <MenuItem>
-          <Dropdown>
-            <div className="m-0 p-0 flex items-center">
-              <img src={fancyDropdownIconL} alt="лого" className="h-5" />
-              <span className="text-coral">{T.translate("fancyDropdown")}</span>
-              <img src={fancyDropdownIconR} alt={T.translate("fancyDropdownIcon")} className="h-5" />
-            </div>
-            <DropdownMenu>
-              <MenuHeader>
-                <span className="mr-2.5">{T.translate("cities")}</span>
-                <button
-                  type="button"
-                  className="px-2 py-1 cursor-pointer border border-solid border-gray-400 rounded font-normal"
-                >
-                  {T.translate("IAmAButton")}
-                </button>
-              </MenuHeader>
-              <hr />
-              <DropdownItem
-                text={T.translate("city.sidney")}
-                url="/sidney"
-                icon={starIcon}
-                iconPR
-                alt={T.translate("starIcon")}
-              />
-              <DropdownItem text={T.translate("city.stockholm")} url="/stockholm" />
-              <DropdownItem text={T.translate("city.newDelhi")} url="/new-delhi" />
-              <DropdownItem text={T.translate("city.beijing")} url="/beijing" />
-              <hr />
-              <p className="m-5">{T.translate("basicText")}</p>
-              <hr />
-              <MenuHeader>{T.translate("parks")}</MenuHeader>
-              <DropdownItem
-                text={T.translate("centralPark")}
-                url="/central-park"
-                icon={radioBtnIconOff}
-                iconPR
-                alt={T.translate("radioButtonOffIcon")}
-              />
-              <DropdownItem
-                text={T.translate("industrialPark")}
-                url="/industrial-park"
-                icon={radioBtnIconOn}
-                iconPR
-                alt={T.translate("radioButtonOnIcon")}
-              />
-            </DropdownMenu>
-          </Dropdown>
-        </MenuItem>
-        {/* separator with ml-auto makes next items aligned right */}
-        <hr className="bg-menu-separator w-px h-16 p-0 ml-auto mt-auto mb-auto" />
-        <MenuItem
-          text={T.translate("bookmarks")}
-          noText
-          url="/bookmark"
-          icon={bookmarkIcon}
-          alt={T.translate("bookmarksIcon")}
-          // alignR
-        />
-        <MenuItem
-          text={T.translate("notifications")}
-          noText
-          url="/notifications"
-          icon={bellIcon}
-          alt={T.translate("notificationsIcon")}
-          // alignR
-        ></MenuItem>
-        <MenuItem >
+        <hr className="bg-menu-separator w-px h-16 p-0 ml-auto mt-auto mb-auto hidden md:block" />
+        <MenuItem noText url="/notifications" icon={bellIcon} className="hidden md:flex" />
+        <MenuItem className="hidden md:flex">
           <Dropdown>
             <div className="m-0 p-0 flex items-center">
               <img
@@ -283,45 +164,23 @@ const App = () => {
               {T.translate("profileMenu")}
             </div>
             <DropdownMenu>
-              <DropdownItem
-                text={T.translate("profile")}
-                url="/profile"
-                icon={profileProfileIcon}
-                iconPR
-                alt={T.translate("profileIcon")}
-              />
-              <DropdownItem
-                text={T.translate("articlesManagement")}
-                url="/articles-management"
-                icon={articlesManageIcon}
-                iconPR
-                alt={T.translate("articlesManageIcon")}
-              />
-              <DropdownItem
-                text={T.translate("feedback")}
-                url="/feedback"
-                icon={feedbackIcon}
-                iconPR
-                alt={T.translate("feedbackIcon")}
-              />
-              <DropdownItem
-                text={T.translate("settings")}
-                url="/settings"
-                icon={settingsIcon}
-                iconPR
-                alt={T.translate("settingsIcon")}
-              />
-              <DropdownItem
-                text={T.translate("logout")}
-                url="/logout"
-                icon={logOutIcon}
-                iconPR
-                alt={T.translate("logoutIcon")}
-              />
+              <DropdownItem text={T.translate("settings")} url="/settings" icon={settingsIcon} />
+              <DropdownItem text={T.translate("logout")} url="/logout" icon={logOutIcon} />
             </DropdownMenu>
           </Dropdown>
         </MenuItem>
       </Menu>
+      {isMenuOpen && (
+        <div className="absolute top-16 left-0 w-full bg-white z-50 p-4">
+          <ul className="list-none p-0 m-0">
+            <MenuItem text="Link" url="/" />
+            <MenuItem text="Sidney" url="/sidney" />
+            <MenuItem text="Stockholm" url="/stockholm" />
+            <MenuItem text="Settings" url="/settings" icon={settingsIcon} />
+            <MenuItem text="Log out" url="/logout" icon={logOutIcon} />
+          </ul>
+        </div>
+      )}
     </>
   );
 };

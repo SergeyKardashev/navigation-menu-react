@@ -39,6 +39,8 @@ export const translations = {
     settingsIcon: "Settings icon",
     logout: "Log out",
     logoutIcon: "Log out icon",
+    hamburgerMenuIcon: "Hamburger menu icon",
+    closeHamburgerMenuIcon: "Close hamburger menu icon",
   },
 
   ru: {
@@ -81,5 +83,7 @@ export const translations = {
     settingsIcon: "Иконка настроек",
     logout: "Выйти",
     logoutIcon: "Иконка выхода",
+    hamburgerMenuIcon: "Иконка гамбургер меню",
+    closeHamburgerMenuIcon: "Иконка закрытия гамбургер меню",
   },
 };
