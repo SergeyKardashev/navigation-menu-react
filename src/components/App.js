@@ -128,7 +128,7 @@ const MenuHeader = ({ children }) => {
 // wrapper for label of dropdown and list of items
 const Dropdown = ({ children }) => {
   // 🔴 useState(true) makes dropdown menu open by default. Fix before release
-  const [isOpen, setIsOpen] = useState(true);
+  const [isOpen, setIsOpen] = useState(false);
 
   // style variable
   const [position, setPosition] = useState("left-0");
@@ -149,12 +149,11 @@ const Dropdown = ({ children }) => {
   useEffect(() => {
     // Check if menu is open and there is a link to DOMelement `dropdownRef`
     if (isOpen && dropdownRef.current) {
-      // Get dropdown menu dimensions
-      console.log(`useEffect was triggered: isOpen value is ${isOpen}`);
-      // console.log(dropdownRef);
-
+      // Get dropdown menu (list) dimensions and coordinates
       const dropdownRect = dropdownRef.current.getBoundingClientRect();
+      // Get dropdown dimensions and coordinates
       const parentRect = dropdownRef.current.parentNode.getBoundingClientRect();
+      
       if (dropdownRect.right > window.innerWidth) {
         setPosition("right-0");
       } else if (parentRect.left < 0) {
